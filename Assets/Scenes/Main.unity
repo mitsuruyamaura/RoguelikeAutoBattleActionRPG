@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MrClockworkIdleDown (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7952196428734863150, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
 --- !u!1001 &191685643
@@ -234,6 +238,10 @@ PrefabInstance:
     - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: m_Name
       value: MrClockworkIdleDown (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952196428734863150, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
@@ -738,7 +746,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9986979, y: 1}
+    m_SensorSize: {x: 2.0006518, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -965,9 +973,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2784364374751078387, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3dc36250ecd31124f8a9a820a3217bc7, type: 2}
     - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: m_Name
       value: MrClockworkIdleDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952196428734863150, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952196428734863150, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
@@ -4748,6 +4768,10 @@ PrefabInstance:
     - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: m_Name
       value: MrClockworkIdleDown (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952196428734863150, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
