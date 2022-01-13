@@ -1274,8 +1274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0c5f644ea148479aa34ba26dfccb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 0}
-  impulseSource: {fileID: 0}
+  virtualCamera: {fileID: 394933806}
+  impulseSource: {fileID: 394933810}
 --- !u!4 &585990374
 Transform:
   m_ObjectHideFlags: 0

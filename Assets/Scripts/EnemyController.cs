@@ -18,11 +18,15 @@ public class EnemyController : ObstacleBase
     private int moveChangeCount;
     private int changeCounter;
 
+    private void Start() {
+        SetUpObstacleBase(ObstacleState.Move);
+    }
+
     /// <summary>
     /// ‰Šúİ’è
     /// </summary>
-    public override void SetUpObstacleBase() {
-        base.SetUpObstacleBase();
+    public override void SetUpObstacleBase(ObstacleState defaultState) {
+        base.SetUpObstacleBase(defaultState);
 
         TryGetComponent(out rb);
         TryGetComponent(out anim);
@@ -35,6 +39,10 @@ public class EnemyController : ObstacleBase
     }
 
     void Update() {
+        if(cururentObstacleState == ObstacleState.Stop) {
+            return;
+        }
+
         ObserveMove();
     }
 
@@ -64,6 +72,10 @@ public class EnemyController : ObstacleBase
     }
 
     void FixedUpdate() {
+        if (cururentObstacleState == ObstacleState.Stop) {
+            return;
+        }
+
         MoveEnemy();
     }
 
@@ -83,5 +95,13 @@ public class EnemyController : ObstacleBase
             anim.SetFloat("Y", 0);
         }
         rb.MovePosition(pos);
+    }
+
+    /// <summary>
+    /// ƒoƒgƒ‹‚Ì€”õˆ—
+    /// </summary>
+    public override void PrapareBattle() {
+        cururentObstacleState = ObstacleState.Stop;
+        rb.velocity = Vector2.zero;
     }
 }
