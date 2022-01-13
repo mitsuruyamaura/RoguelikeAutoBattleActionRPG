@@ -22,19 +22,26 @@ public class ObstacleBase : MonoBehaviour
 
     public int coinBoxRate;
 
+    public enum ObstacleState {
+        Move,
+        Stop,
+
+    }
+    public ObstacleState cururentObstacleState;
 
 
     void Start() {
 
         // デバッグ用
-        SetUpObstacleBase();
+        //SetUpObstacleBase();
     }
 
     /// <summary>
     /// 初期設定
     /// </summary>
-    public virtual void SetUpObstacleBase() {
+    public virtual void SetUpObstacleBase(ObstacleState defaultState) {
         maxHp = Hp;
+        cururentObstacleState = defaultState;
     }
 
     /// <summary>
