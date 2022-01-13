@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState currentPlayerState;
 
+    public ReactiveProperty<PlayerState> CurrentPlayerState = new ReactiveProperty<PlayerState>(PlayerState.Move);
+    public ReactiveProperty<bool> IsPause = new ReactiveProperty<bool>(false);
+
 
     // Start is called before the first frame update
     void Start() {
@@ -46,7 +49,7 @@ public class PlayerController : MonoBehaviour
                 vertical = joystick.Vertical;
 #endif
                 isDash = Input.GetKey(KeyCode.LeftShift) ? true : false;
-                
+
                 if (anim) {
                     SyncMoveAnimation();
                 }
@@ -55,6 +58,13 @@ public class PlayerController : MonoBehaviour
         this.FixedUpdateAsObservable()
             .Where(_ => rb && currentPlayerState == PlayerState.Move)
             .Subscribe(_ => Move()).AddTo(this);
+
+        this.OnTriggerEnter2DAsObservable()
+            .Subscribe(col => {
+            if (col.TryGetComponent(out ObstacleBase enemy)) {
+                StartCoroutine(AutoBattle(enemy));
+            }
+        }).AddTo(this);
     }
 
     /// <summary>
@@ -86,6 +96,142 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 自動バトル
+    /// </summary>
+    /// <param name="enemy"></param>
+    /// <returns></returns>
+    private IEnumerator AutoBattle(ObstacleBase enemy) {
+
+        Debug.Log("バトル開始");
+
+        // 双方の Hp ゲージが表示中か確認　アニメ中なら停止
+
+
+        enemy.PrapareBattle();
+
+        // 敵のHp ゲージを最大値にする
+
+        // プレイヤーの移動を停止
+        rb.velocity = Vector2.zero;
+
+        // ステートを変更して、移動の入力を受け付けないようにすうｒ
+        currentPlayerState = PlayerState.Battle;
+
+        // 双方の Hp ゲージを画面に移動して表示
+
+        // ズームイン(自動で購読させるので、不要)
+
+        // バトル時のエフェクト表示
+
+        // バトル監視
+        while (currentPlayerState == PlayerState.Battle) {
+
+            // 一時停止
+            if (IsPause.Value) {
+                yield return null;
+            }
+
+            // カメラ振動(自動で購読させるので、不要)
+
+            // 使用するスキル決定
+
+            // TODO アーティファクトによる攻撃速度を加算
+            int totalAttackSpeed = Random.Range(3, 10);
+
+            // 攻撃回数カウント
+
+
+            // 指定した回数攻撃を行ったら
+
+
+            // TODO ボーナスの候補
+            // アーティファクト購入用のポイント獲得 => 任意のベース能力値アップ
+            // 武器のレアリティ基準のアーティファクトを１つランダムで入手
+
+
+
+            // 攻撃順番確認
+            if (totalAttackSpeed >= enemy.attackSpeed) {
+                AttackPlayer(); // TODO SkillData 渡す
+                yield return new WaitForSeconds(0.25f);
+                AttackEnemy();
+            } else {
+                AttackEnemy();
+                yield return new WaitForSeconds(0.25f);
+                AttackPlayer(); // TODO SkillData 渡す
+            }
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        void AttackPlayer(SkillData skillData = null) {
+
+            // スキルデータがあるかないかで処理を変更
+            int totalAttackPower = skillData != null ? skillData.attackPower : Random.Range(1, 4);
+            bool isCritical = skillData != null ? JudgeCriticalHit() : Random.Range(0, 2) == 0 ? true : false;
+            totalAttackPower *= isCritical ? 3 : 1;
+
+            Debug.Log(totalAttackPower);
+
+            enemy.Hp -= totalAttackPower;
+            Debug.Log("敵の残り HP : " + enemy.Hp);
+
+            // Hp ゲージの同期
+            
+            // フローティングメッセージの生成
+
+            if (enemy.Hp <= 0) {
+                currentPlayerState = PlayerState.Result;
+            }
+
+            /// <summary>
+            /// クリティカル判定
+            /// </summary>
+            bool JudgeCriticalHit() {
+                return skillData.criticalRate > Random.Range(0, 100) ? true : false;
+            }
+        }
+
+        void AttackEnemy() {
+            UserDataManager.instance.Hp.Value -= enemy.AttackPower;
+            Debug.Log("プレイヤーの残り HP : " + UserDataManager.instance.Hp.Value);
+
+            // HP ゲージが表示されている場合には、ゲージの移動処理を止める
+
+
+            // ゲージの移動と同期
+
+            //imgPlayerHpGauge.DOFillAmount((float)hp / maxHp, 0.25f).SetEase(Ease.Linear);
+            //FloatingMessage playerFloatingMessage = Instantiate(floatingMessagePrefab, playerHpGaugeTrans[1].transform, false);
+            //playerFloatingMessage.ShowMessage(-enemy.AttackPower);
+
+            // Hp が 0 以下かどうか判定してステート変更(購読しているので処理不要)
+        }
+
+        Debug.Log(currentPlayerState == PlayerState.Result ? "勝利" : "敗北");
+
+        // バトルのエフェクトを破棄
+
+        // ズームアウト(自動で購読させるので、不要)
+
+        // リザルト処理入れる(それまで hp を見せておく)
+        if (currentPlayerState == PlayerState.Result) {
+
+           // ドロップアイテムがあるか判定
+
+        }
+
+        enemy.DestroyObstacle();
+
+        // トレジャー選択ウインドウが閉じるまで待機
+
+        currentPlayerState = PlayerState.Move;
+
+        yield return new WaitForSeconds(0.5f);
+
+        // HP ゲージを画面外へ移動
+        
+    }
 
     /***** UniRX を使わない場合  *****/
 

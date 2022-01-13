@@ -33,12 +33,12 @@ public class CameraController : MonoBehaviour
             .Subscribe(_ => {
                 isZoom = !isZoom;
                 StartCoroutine(ChangeCameraOrthoSize(isZoom ? zoomLensOrthoSize : originLensOrthoSize));
-            });
+            }).AddTo(this);
 
         // デバッグ用
         this.UpdateAsObservable()
             .Where(_ => Input.GetKeyDown(KeyCode.I))
-            .Subscribe(_ => ImpulseCamera());
+            .Subscribe(_ => ImpulseCamera()).AddTo(this);
     }
 
     /// <summary>
@@ -47,6 +47,24 @@ public class CameraController : MonoBehaviour
     /// <param name="value"></param>
     /// <returns></returns>
     public IEnumerator ChangeCameraOrthoSize(float value) {
+        DOTween.To(
+            () => virtualCamera.m_Lens.OrthographicSize,
+            x => virtualCamera.m_Lens.OrthographicSize = x,
+            value,
+            zoomDuration
+            );
+        yield return null;
+    }
+
+    /// <summary>
+    /// カメラの LensOrthoSize を変更したズーム処理
+    /// </summary>
+    /// <param name="playerState"></param>
+    /// <returns></returns>
+    public IEnumerator ChangeCameraOrthoSize(PlayerController.PlayerState playerState) {
+
+        float value = playerState == PlayerController.PlayerState.Battle ? zoomLensOrthoSize : originLensOrthoSize;
+
         DOTween.To(
             () => virtualCamera.m_Lens.OrthographicSize,
             x => virtualCamera.m_Lens.OrthographicSize = x,

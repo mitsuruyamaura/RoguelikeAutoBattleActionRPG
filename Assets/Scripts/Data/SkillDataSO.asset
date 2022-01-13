@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d4c9e2dcba1f14296d46de00014694, type: 3}
+  m_Name: SkillDataSO
+  m_EditorClassIdentifier: 
+  skillDatasList:
+  - name: a
+    no: 0
+    weight: 100
+    count: -6
+    rarity: 0
+    attackPower: 2
+    criticalRate: 10
+    doubleStrikeRate: 0
+    attackSpeed: 3
+    lifeUp: 0
+  - name: b
+    no: 1
+    weight: 80
+    count: -2
+    rarity: 0
+    attackPower: 3
+    criticalRate: 5
+    doubleStrikeRate: 5
+    attackSpeed: 2
+    lifeUp: 0
+  - name: c
+    no: 2
+    weight: 60
+    count: -4
+    rarity: 0
+    attackPower: 3
+    criticalRate: 15
+    doubleStrikeRate: 0
+    attackSpeed: 2
+    lifeUp: 0
+  - name: d
+    no: 3
+    weight: 10
+    count: 2
+    rarity: 0
+    attackPower: 2
+    criticalRate: 0
+    doubleStrikeRate: 20
+    attackSpeed: 7
+    lifeUp: 0
+  - name: e
+    no: 4
+    weight: 70
+    count: -2
+    rarity: 1
+    attackPower: 3
+    criticalRate: 10
+    doubleStrikeRate: 0
+    attackSpeed: 4
+    lifeUp: 0
+  - name: f
+    no: 5
+    weight: 40
+    count: 0
+    rarity: 1
+    attackPower: 1
+    criticalRate: 10
+    doubleStrikeRate: 0
+    attackSpeed: 6
+    lifeUp: 3
+  - name: g
+    no: 6
+    weight: 100
+    count: -4
+    rarity: 2
+    attackPower: 4
+    criticalRate: 5
+    doubleStrikeRate: 15
+    attackSpeed: 4
+    lifeUp: 0
+  - name: h
+    no: 7
+    weight: 30
+    count: 0
+    rarity: 2
+    attackPower: 4
+    criticalRate: 0
+    doubleStrikeRate: 20
+    attackSpeed: 5
+    lifeUp: 0
+  - name: i
+    no: 8
+    weight: 200
+    count: -10
+    rarity: 3
+    attackPower: 5
+    criticalRate: 0
+    doubleStrikeRate: 20
+    attackSpeed: 5
+    lifeUp: 0
+  - name: j
+    no: 9
+    weight: 40
+    count: 2
+    rarity: 3
+    attackPower: 10
+    criticalRate: 20
+    doubleStrikeRate: 10
+    attackSpeed: 10
+    lifeUp: 0

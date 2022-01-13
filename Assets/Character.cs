@@ -14,4 +14,11 @@ public class Character
     public int attackSpeed;
     public Rarity rarity;
     public Sprite charaSprite;
+
+
+    public static Character CreateChara() {
+        return new Character() {
+            maxHp = 10
+        };
+    }
 }
