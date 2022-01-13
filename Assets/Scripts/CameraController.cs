@@ -6,6 +6,9 @@ using DG.Tweening;
 using UniRx;
 using UniRx.Triggers;
 
+/// <summary>
+/// ÉJÉÅÉâêßå‰óp
+/// </summary>
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
@@ -20,7 +23,6 @@ public class CameraController : MonoBehaviour
 
     private bool isZoom;  // true Ç»ÇÁ ZoomIn íÜ
 
-    // Start is called before the first frame update
     void Start()
     {
         originLensOrthoSize = virtualCamera.m_Lens.OrthographicSize;
