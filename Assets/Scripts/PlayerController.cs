@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
 
     public enum PlayerState {
         Move,
-        Battle,
+        Battle_Before,
+        Battle_After,
         Result,
         Info,
         GameUp
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
         TryGetComponent(out anim);
 
         this.UpdateAsObservable()
-            .Where(_ => currentPlayerState == PlayerState.Move)
+            .Where(_ => currentPlayerState == PlayerState.Move || CurrentPlayerState.Value == PlayerState.Move)
             .Subscribe(_ => {
 #if UNITY_EDITOR
                 horizontal = Input.GetAxis("Horizontal");
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
             }).AddTo(this);
 
         this.FixedUpdateAsObservable()
-            .Where(_ => rb && currentPlayerState == PlayerState.Move)
+            .Where(_ => rb && currentPlayerState == PlayerState.Move || CurrentPlayerState.Value == PlayerState.Move)
             .Subscribe(_ => Move()).AddTo(this);
 
         this.OnTriggerEnter2DAsObservable()
@@ -116,7 +117,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
 
         // ステートを変更して、移動の入力を受け付けないようにする
-        currentPlayerState = PlayerState.Battle;
+        currentPlayerState = PlayerState.Battle_Before;
+        CurrentPlayerState.Value = PlayerState.Battle_Before;
 
         // 双方の Hp ゲージを画面に移動して表示(自動で購読させるので、不要)
 
@@ -125,7 +127,7 @@ public class PlayerController : MonoBehaviour
         // バトル時のエフェクト表示
 
         // バトル監視
-        while (currentPlayerState == PlayerState.Battle) {
+        while (currentPlayerState == PlayerState.Battle_Before || CurrentPlayerState.Value == PlayerState.Battle_Before) {
 
             // 一時停止
             if (IsPause.Value) {
@@ -182,6 +184,7 @@ public class PlayerController : MonoBehaviour
 
             if (enemy.Hp.Value <= 0) {
                 currentPlayerState = PlayerState.Result;
+                CurrentPlayerState.Value = PlayerState.Result;
             }
 
             /// <summary>
@@ -207,14 +210,15 @@ public class PlayerController : MonoBehaviour
             // Hp が 0 以下かどうか判定してステート変更(購読しているので処理不要)
         }
 
-        Debug.Log(currentPlayerState == PlayerState.Result ? "勝利" : "敗北");
+        //Debug.Log(currentPlayerState == PlayerState.Result ? "勝利" : "敗北");
+        Debug.Log(CurrentPlayerState.Value == PlayerState.Result ? "勝利" : "敗北");
 
         // バトルのエフェクトを破棄
 
         // ズームアウト(自動で購読させるので、不要)
 
         // リザルト処理入れる(それまで hp を見せておく)
-        if (currentPlayerState == PlayerState.Result) {
+        if (currentPlayerState == PlayerState.Result || CurrentPlayerState.Value == PlayerState.Result) {
 
            // ドロップアイテムがあるか判定
 
@@ -224,12 +228,18 @@ public class PlayerController : MonoBehaviour
 
         // トレジャー選択ウインドウが閉じるまで待機
 
+        yield return new WaitForSeconds(1.0f);
+
+        currentPlayerState = PlayerState.Battle_After;
+        CurrentPlayerState.Value = PlayerState.Battle_After;
+
+
+        yield return new WaitForSeconds(0.25f);
+
         currentPlayerState = PlayerState.Move;
+        CurrentPlayerState.Value = PlayerState.Move;
 
-        yield return new WaitForSeconds(0.5f);
-
-        // HP ゲージを画面外へ移動
-        
+        // HP ゲージを画面外へ移動(自動で購読させるので、不要)
     }
 
     /***** UniRX を使わない場合  *****/

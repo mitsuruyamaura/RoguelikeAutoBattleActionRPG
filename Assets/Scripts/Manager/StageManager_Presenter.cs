@@ -15,8 +15,8 @@ public class StageManager_Presenter : MonoBehaviour
     [SerializeField]
     private HpGauge_View hpGaugeView;
 
-    [SerializeField]
-    private ObstacleBase[] obstacles;
+    [SerializeField]// ReactiveCollection に変える
+    private List<ObstacleBase> obstaclesList = new List<ObstacleBase>();  // TOD0 削除処理を入れる
 
 
     void Start() {
@@ -35,21 +35,22 @@ public class StageManager_Presenter : MonoBehaviour
 
         // プレイヤーのステートを購読し、バトルかリザルト時にカメラのズームを行う
         playerController.CurrentPlayerState
-            .Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Result)
+            .Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_After)
             .Subscribe(_ => {
                 // カメラのズーム
-                StartCoroutine(cameraController.ChangeCameraOrthoSize(PlayerController.PlayerState.Battle));
+                StartCoroutine(cameraController.ChangeCameraOrthoSize(playerController.CurrentPlayerState.Value));
 
                 // Hpゲージの動作確認と移動
                 hpGaugeView.PrepareCheckHpGaugeState();
 
-                (float alpha, int index) value = playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle ? (1.0f, 1) : (0.0f, 0);
+                (float alpha, int index) value = playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before ? (1.0f, 1) : (0.0f, 0);
                 hpGaugeView.MoveHpGaugePositions(value.alpha, value.index);
+                //Debug.Log("ゲージ移動");
 
             }).AddTo(this);
 
         // ポーズ状態を購読し、バトル時かつポーズでない場合にはカメラを振動させる
-        playerController.IsPause.Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle && !playerController.IsPause.Value)
+        playerController.IsPause.Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before && !playerController.IsPause.Value)
             .Subscribe(_ => cameraController.ImpulseCamera())
             .AddTo(this);
 
@@ -65,9 +66,9 @@ public class StageManager_Presenter : MonoBehaviour
             .AddTo(this);
 
         // 障害物の HP の購読
-        for (int i = 0; i < obstacles.Length; i++) {
+        for (int i = 0; i < obstaclesList.Count; i++) {
             int index = i;
-            obstacles[index].Hp.Subscribe(x => hpGaugeView.UpdateObstacleHpGauge(x, obstacles[index].maxHp)).AddTo(obstacles[index].gameObject);
+            obstaclesList[index].Hp.Subscribe(x => hpGaugeView.UpdateObstacleHpGauge(x, obstaclesList[index].maxHp)).AddTo(obstaclesList[index].gameObject);
         }
     }
 }
