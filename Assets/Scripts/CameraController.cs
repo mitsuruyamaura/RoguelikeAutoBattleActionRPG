@@ -63,7 +63,7 @@ public class CameraController : MonoBehaviour
     /// <returns></returns>
     public IEnumerator ChangeCameraOrthoSize(PlayerController.PlayerState playerState) {
 
-        float value = playerState == PlayerController.PlayerState.Battle ? zoomLensOrthoSize : originLensOrthoSize;
+        float value = playerState == PlayerController.PlayerState.Battle_Before ? zoomLensOrthoSize : originLensOrthoSize;
 
         DOTween.To(
             () => virtualCamera.m_Lens.OrthographicSize,

@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class ObstacleBase : MonoBehaviour
 {
-    [SerializeField]
-    private int hp;
+    public int hp;
 
     [SerializeField]
     private int attackPower;
 
     public int maxHp;
 
-    public int Hp { get => hp; set => hp = value; }
+    public ReactiveProperty<int> Hp = new ReactiveProperty<int>();
     public int AttackPower { get => attackPower; set => attackPower = value; }
 
     public int attackSpeed;
@@ -40,7 +40,8 @@ public class ObstacleBase : MonoBehaviour
     /// èâä˙ê›íË
     /// </summary>
     public virtual void SetUpObstacleBase(ObstacleState defaultState) {
-        maxHp = Hp;
+        Hp.Value = hp;
+        maxHp = hp;
         cururentObstacleState = defaultState;
     }
 

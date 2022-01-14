@@ -12,9 +12,14 @@ public class StageManager_Presenter : MonoBehaviour
     [SerializeField]
     private CameraController cameraController;
 
+    [SerializeField]
+    private HpGauge_View hpGaugeView;
 
-    void Start()
-    {
+    [SerializeField]// ReactiveCollection に変える
+    private List<ObstacleBase> obstaclesList = new List<ObstacleBase>();  // TOD0 削除処理を入れる
+
+
+    void Start() {
         // ユーザーが生成されていない場合には、ユーザーを作成
         //if(UserDataManager.instance.user != null) {
         //    UserDataManager.instance.user = User.CreateUser(60, 0, 1);
@@ -30,18 +35,40 @@ public class StageManager_Presenter : MonoBehaviour
 
         // プレイヤーのステートを購読し、バトルかリザルト時にカメラのズームを行う
         playerController.CurrentPlayerState
-            .Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Result)
+            .Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_After)
             .Subscribe(_ => {
-                StartCoroutine(cameraController.ChangeCameraOrthoSize(PlayerController.PlayerState.Battle));
+                // カメラのズーム
+                StartCoroutine(cameraController.ChangeCameraOrthoSize(playerController.CurrentPlayerState.Value));
+
+                // Hpゲージの動作確認と移動
+                hpGaugeView.PrepareCheckHpGaugeState();
+
+                (float alpha, int index) value = playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before ? (1.0f, 1) : (0.0f, 0);
+                hpGaugeView.MoveHpGaugePositions(value.alpha, value.index);
+                //Debug.Log("ゲージ移動");
+
             }).AddTo(this);
 
         // ポーズ状態を購読し、バトル時かつポーズでない場合にはカメラを振動させる
-        playerController.IsPause.Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle && !playerController.IsPause.Value)
+        playerController.IsPause.Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before && !playerController.IsPause.Value)
             .Subscribe(_ => cameraController.ImpulseCamera())
             .AddTo(this);
 
-        UserDataManager.instance.Hp.Where(_ => UserDataManager.instance.Hp.Value <= 0)
-            .Subscribe(_ => playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp)
+        UserDataManager.instance.Hp
+            .Subscribe(x => {
+                // Hpゲージ更新
+                hpGaugeView.UpdatePlayerHpGauge(x, UserDataManager.instance.currentCharacter.maxHp);
+                
+                if (UserDataManager.instance.Hp.Value <= 0) {
+                    playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
+                }
+            })
             .AddTo(this);
+
+        // 障害物の HP の購読
+        for (int i = 0; i < obstaclesList.Count; i++) {
+            int index = i;
+            obstaclesList[index].Hp.Subscribe(x => hpGaugeView.UpdateObstacleHpGauge(x, obstaclesList[index].maxHp)).AddTo(obstaclesList[index].gameObject);
+        }
     }
 }

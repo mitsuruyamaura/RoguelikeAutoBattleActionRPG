@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
 
     public enum PlayerState {
         Move,
-        Battle,
+        Battle_Before,
+        Battle_After,
         Result,
         Info,
         GameUp
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
         TryGetComponent(out anim);
 
         this.UpdateAsObservable()
-            .Where(_ => currentPlayerState == PlayerState.Move)
+            .Where(_ => currentPlayerState == PlayerState.Move || CurrentPlayerState.Value == PlayerState.Move)
             .Subscribe(_ => {
 #if UNITY_EDITOR
                 horizontal = Input.GetAxis("Horizontal");
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
             }).AddTo(this);
 
         this.FixedUpdateAsObservable()
-            .Where(_ => rb && currentPlayerState == PlayerState.Move)
+            .Where(_ => rb && currentPlayerState == PlayerState.Move || CurrentPlayerState.Value == PlayerState.Move)
             .Subscribe(_ => Move()).AddTo(this);
 
         this.OnTriggerEnter2DAsObservable()
@@ -105,27 +106,28 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("バトル開始");
 
-        // 双方の Hp ゲージが表示中か確認　アニメ中なら停止
+        // 双方の Hp ゲージが表示中か確認　アニメ中なら停止(自動で購読させるので、不要)
 
 
         enemy.PrapareBattle();
 
-        // 敵のHp ゲージを最大値にする
+        // 敵のHp ゲージを最大値にする(自動で購読させるので、不要)
 
         // プレイヤーの移動を停止
         rb.velocity = Vector2.zero;
 
-        // ステートを変更して、移動の入力を受け付けないようにすうｒ
-        currentPlayerState = PlayerState.Battle;
+        // ステートを変更して、移動の入力を受け付けないようにする
+        currentPlayerState = PlayerState.Battle_Before;
+        CurrentPlayerState.Value = PlayerState.Battle_Before;
 
-        // 双方の Hp ゲージを画面に移動して表示
+        // 双方の Hp ゲージを画面に移動して表示(自動で購読させるので、不要)
 
         // ズームイン(自動で購読させるので、不要)
 
         // バトル時のエフェクト表示
 
         // バトル監視
-        while (currentPlayerState == PlayerState.Battle) {
+        while (currentPlayerState == PlayerState.Battle_Before || CurrentPlayerState.Value == PlayerState.Battle_Before) {
 
             // 一時停止
             if (IsPause.Value) {
@@ -173,15 +175,16 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log(totalAttackPower);
 
-            enemy.Hp -= totalAttackPower;
+            enemy.Hp.Value -= totalAttackPower;
             Debug.Log("敵の残り HP : " + enemy.Hp);
 
-            // Hp ゲージの同期
-            
+            // Hp ゲージの同期(自動で購読させるので、不要)
+
             // フローティングメッセージの生成
 
-            if (enemy.Hp <= 0) {
+            if (enemy.Hp.Value <= 0) {
                 currentPlayerState = PlayerState.Result;
+                CurrentPlayerState.Value = PlayerState.Result;
             }
 
             /// <summary>
@@ -198,8 +201,7 @@ public class PlayerController : MonoBehaviour
 
             // HP ゲージが表示されている場合には、ゲージの移動処理を止める
 
-
-            // ゲージの移動と同期
+            // ゲージの移動と同期(自動で購読させるので、不要)
 
             //imgPlayerHpGauge.DOFillAmount((float)hp / maxHp, 0.25f).SetEase(Ease.Linear);
             //FloatingMessage playerFloatingMessage = Instantiate(floatingMessagePrefab, playerHpGaugeTrans[1].transform, false);
@@ -208,14 +210,15 @@ public class PlayerController : MonoBehaviour
             // Hp が 0 以下かどうか判定してステート変更(購読しているので処理不要)
         }
 
-        Debug.Log(currentPlayerState == PlayerState.Result ? "勝利" : "敗北");
+        //Debug.Log(currentPlayerState == PlayerState.Result ? "勝利" : "敗北");
+        Debug.Log(CurrentPlayerState.Value == PlayerState.Result ? "勝利" : "敗北");
 
         // バトルのエフェクトを破棄
 
         // ズームアウト(自動で購読させるので、不要)
 
         // リザルト処理入れる(それまで hp を見せておく)
-        if (currentPlayerState == PlayerState.Result) {
+        if (currentPlayerState == PlayerState.Result || CurrentPlayerState.Value == PlayerState.Result) {
 
            // ドロップアイテムがあるか判定
 
@@ -225,12 +228,18 @@ public class PlayerController : MonoBehaviour
 
         // トレジャー選択ウインドウが閉じるまで待機
 
+        yield return new WaitForSeconds(1.0f);
+
+        currentPlayerState = PlayerState.Battle_After;
+        CurrentPlayerState.Value = PlayerState.Battle_After;
+
+
+        yield return new WaitForSeconds(0.25f);
+
         currentPlayerState = PlayerState.Move;
+        CurrentPlayerState.Value = PlayerState.Move;
 
-        yield return new WaitForSeconds(0.5f);
-
-        // HP ゲージを画面外へ移動
-        
+        // HP ゲージを画面外へ移動(自動で購読させるので、不要)
     }
 
     /***** UniRX を使わない場合  *****/
