@@ -105,20 +105,20 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("バトル開始");
 
-        // 双方の Hp ゲージが表示中か確認　アニメ中なら停止
+        // 双方の Hp ゲージが表示中か確認　アニメ中なら停止(自動で購読させるので、不要)
 
 
         enemy.PrapareBattle();
 
-        // 敵のHp ゲージを最大値にする
+        // 敵のHp ゲージを最大値にする(自動で購読させるので、不要)
 
         // プレイヤーの移動を停止
         rb.velocity = Vector2.zero;
 
-        // ステートを変更して、移動の入力を受け付けないようにすうｒ
+        // ステートを変更して、移動の入力を受け付けないようにする
         currentPlayerState = PlayerState.Battle;
 
-        // 双方の Hp ゲージを画面に移動して表示
+        // 双方の Hp ゲージを画面に移動して表示(自動で購読させるので、不要)
 
         // ズームイン(自動で購読させるので、不要)
 
@@ -173,14 +173,14 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log(totalAttackPower);
 
-            enemy.Hp -= totalAttackPower;
+            enemy.Hp.Value -= totalAttackPower;
             Debug.Log("敵の残り HP : " + enemy.Hp);
 
-            // Hp ゲージの同期
-            
+            // Hp ゲージの同期(自動で購読させるので、不要)
+
             // フローティングメッセージの生成
 
-            if (enemy.Hp <= 0) {
+            if (enemy.Hp.Value <= 0) {
                 currentPlayerState = PlayerState.Result;
             }
 
@@ -198,8 +198,7 @@ public class PlayerController : MonoBehaviour
 
             // HP ゲージが表示されている場合には、ゲージの移動処理を止める
 
-
-            // ゲージの移動と同期
+            // ゲージの移動と同期(自動で購読させるので、不要)
 
             //imgPlayerHpGauge.DOFillAmount((float)hp / maxHp, 0.25f).SetEase(Ease.Linear);
             //FloatingMessage playerFloatingMessage = Instantiate(floatingMessagePrefab, playerHpGaugeTrans[1].transform, false);
