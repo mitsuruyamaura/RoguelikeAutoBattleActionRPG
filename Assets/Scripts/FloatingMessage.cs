@@ -14,6 +14,12 @@ public class FloatingMessage : EffectBase
         ShowMessage(amount, isCritical, isGain);
     }
 
+    /// <summary>
+    /// フロート表示の生成と設定
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="isCritical"></param>
+    /// <param name="isGain"></param>
     public void ShowMessage(int amount, bool isCritical = false, bool isGain = false) {
 
         transform.position = new Vector3(transform.position.x + Random.Range(-10.0f, 10.0f), transform.position.y + Random.Range(0, 5.0f), 0);

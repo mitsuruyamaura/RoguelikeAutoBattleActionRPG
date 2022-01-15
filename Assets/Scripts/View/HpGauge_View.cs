@@ -91,7 +91,7 @@ public class HpGauge_View : MonoBehaviour
 
         if (maxHp != 0) {
             EffectBase enemyFloatingMessage = Instantiate(EffectManager.instance.GetEffect(EffectType.FloatingMessage), enemyHpGaugeTrans[1].transform, false);
-            enemyFloatingMessage.TriggerEffect(-amount);
+            enemyFloatingMessage.TriggerEffect(amount);
         }
     }
 
@@ -104,6 +104,10 @@ public class HpGauge_View : MonoBehaviour
         imgPlayerHpGauge.DOFillAmount((float)hp / maxHp, 0.25f).SetEase(Ease.Linear);
 
         EffectBase playerFloatingMessage = Instantiate(EffectManager.instance.GetEffect(EffectType.FloatingMessage), playerHpGaugeTrans[1].transform, false);
-        playerFloatingMessage.TriggerEffect(-amount, false, isGain);
+
+        if (amount > 0) {
+            isGain = true;
+        }
+        playerFloatingMessage.TriggerEffect(amount, false, isGain);
     }
 }
