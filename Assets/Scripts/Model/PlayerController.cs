@@ -125,6 +125,10 @@ public class PlayerController : MonoBehaviour
         // ズームイン(自動で購読させるので、不要)
 
         // バトル時のエフェクト表示
+        GameObject[] effect = new GameObject[EffectManager.instance.GetEffect(EffectType.Battle).Length];
+        for (int i = 0; i < effect.Length; i++) {
+            effect[i] = Instantiate(EffectManager.instance.GetEffect(EffectType.Battle)[i], transform.position, EffectManager.instance.GetEffect(EffectType.Battle)[i].transform.rotation);
+        }
 
         // バトル監視
         while (currentPlayerState == PlayerState.Battle_Before || CurrentPlayerState.Value == PlayerState.Battle_Before) {
@@ -214,6 +218,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log(CurrentPlayerState.Value == PlayerState.Result ? "勝利" : "敗北");
 
         // バトルのエフェクトを破棄
+        for (int i = 0; i < effect.Length; i++) {
+            Destroy(effect[i]);
+        }
 
         // ズームアウト(自動で購読させるので、不要)
 
@@ -228,7 +235,7 @@ public class PlayerController : MonoBehaviour
 
         // トレジャー選択ウインドウが閉じるまで待機
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         currentPlayerState = PlayerState.Battle_After;
         CurrentPlayerState.Value = PlayerState.Battle_After;
