@@ -85,9 +85,14 @@ public class HpGauge_View : MonoBehaviour
     /// </summary>
     /// <param name="hp"></param>
     /// <param name="maxHp"></param>
-    public void UpdateObstacleHpGauge(float hp, float maxHp) {
+    public void UpdateObstacleHpGauge(int hp, int maxHp, int amount) {
         Debug.Log("hp : " + hp + " / maxHp : " + maxHp);
         imgEnemyHpGauge.DOFillAmount((float)hp / maxHp, 0.25f).SetEase(Ease.InCirc);
+
+        if (maxHp != 0) {
+            EffectBase enemyFloatingMessage = Instantiate(EffectManager.instance.GetEffect(EffectType.FloatingMessage), enemyHpGaugeTrans[1].transform, false);
+            enemyFloatingMessage.TriggerEffect(amount);
+        }
     }
 
     /// <summary>
@@ -95,7 +100,14 @@ public class HpGauge_View : MonoBehaviour
     /// </summary>
     /// <param name="hp"></param>
     /// <param name="maxHp"></param>
-    public void UpdatePlayerHpGauge(float hp, float maxHp) {
+    public void UpdatePlayerHpGauge(float hp, float maxHp, int amount, bool isGain = false) {
         imgPlayerHpGauge.DOFillAmount((float)hp / maxHp, 0.25f).SetEase(Ease.Linear);
+
+        EffectBase playerFloatingMessage = Instantiate(EffectManager.instance.GetEffect(EffectType.FloatingMessage), playerHpGaugeTrans[1].transform, false);
+
+        if (amount > 0) {
+            isGain = true;
+        }
+        playerFloatingMessage.TriggerEffect(amount, false, isGain);
     }
 }

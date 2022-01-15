@@ -14145,6 +14145,7 @@ GameObject:
   - component: {fileID: 6551724568361414376}
   - component: {fileID: 6552726393273590788}
   - component: {fileID: 6465832342081421532}
+  - component: {fileID: 5494750756538987061}
   m_Layer: 0
   m_Name: CFX_Explosion_B_Smoke+Text
   m_TagString: FxTemporaire
@@ -18857,6 +18858,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnlyDeactivate: 0
+--- !u!114 &5494750756538987061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353170185513223064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9d32ea5c45bfd4bb9a20f745145ab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6354470665989451334
 GameObject:
   m_ObjectHideFlags: 0

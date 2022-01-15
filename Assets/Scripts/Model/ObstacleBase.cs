@@ -34,6 +34,7 @@ public class ObstacleBase : MonoBehaviour
 
         // デバッグ用
         //SetUpObstacleBase();
+
     }
 
     /// <summary>

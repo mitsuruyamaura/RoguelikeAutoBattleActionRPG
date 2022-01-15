@@ -4,7 +4,8 @@
 public enum EffectType
 {
     Battle,
-    Item_Get,
-    Weapon_Change
+    ItemGet,
+    WeaponChange,
+    FloatingMessage,
 
 }
