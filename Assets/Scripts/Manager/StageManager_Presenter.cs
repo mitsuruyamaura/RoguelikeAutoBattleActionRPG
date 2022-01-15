@@ -7,15 +7,15 @@ using UniRx.Triggers;
 public class StageManager_Presenter : MonoBehaviour
 {
     [SerializeField]
-    private PlayerController playerController;
+    private PlayerController playerController;    // Model
 
     [SerializeField]
-    private CameraController cameraController;
+    private CameraController cameraController;    // View
 
     [SerializeField]
     private HpGauge_View hpGaugeView;
 
-    [SerializeField]// ReactiveCollection に変える
+    [SerializeField]                              // Model ReactiveCollection に変える
     private List<ObstacleBase> obstaclesList = new List<ObstacleBase>();  // TOD0 削除処理を入れる
 
 
@@ -47,13 +47,14 @@ public class StageManager_Presenter : MonoBehaviour
                 hpGaugeView.MoveHpGaugePositions(value.alpha, value.index);
                 //Debug.Log("ゲージ移動");
 
-            }).AddTo(this);
+            }).AddTo(playerController.gameObject);
 
-        // ポーズ状態を購読し、バトル時かつポーズでない場合にはカメラを振動させる
+        // プレイヤーのポーズ状態を購読し、バトル時かつポーズでない場合にはカメラを振動させる
         playerController.IsPause.Where(_ => playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before && !playerController.IsPause.Value)
             .Subscribe(_ => cameraController.ImpulseCamera())
-            .AddTo(this);
+            .AddTo(playerController.gameObject);
 
+        // プレイヤーの HP の購読
         UserDataManager.instance.Hp
             .Subscribe(x => {
                 // Hpゲージ更新
@@ -65,9 +66,13 @@ public class StageManager_Presenter : MonoBehaviour
             })
             .AddTo(this);
 
+        // TODO 障害物の生成と List への登録
+
         // 障害物の HP の購読
         for (int i = 0; i < obstaclesList.Count; i++) {
             int index = i;
+
+            // 障害物が破壊された時点で購読を止める
             obstaclesList[index].Hp.Subscribe(x => hpGaugeView.UpdateObstacleHpGauge(x, obstaclesList[index].maxHp)).AddTo(obstaclesList[index].gameObject);
         }
     }
