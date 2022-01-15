@@ -35,6 +35,8 @@ public class EnemyController : ObstacleBase
         isVertical = Random.Range(0, 2) == 0 ? false : true;
         moveTimer = Random.Range(2, 4);
 
+        cururentObstacleState = ObstacleState.Move;
+
         SetMoveChangeCount();
     }
 

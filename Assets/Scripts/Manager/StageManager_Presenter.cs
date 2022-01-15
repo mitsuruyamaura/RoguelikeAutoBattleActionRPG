@@ -15,8 +15,17 @@ public class StageManager_Presenter : MonoBehaviour
     [SerializeField]
     private HpGauge_View hpGaugeView;
 
+    [SerializeField]
+    private ObstacleGenerator obstacleGenerator;
+
     [SerializeField]                              // Model ReactiveCollection に変える
     private List<ObstacleBase> obstaclesList = new List<ObstacleBase>();  // TOD0 削除処理を入れる
+
+    [SerializeField, Header("障害物の重み付け")]
+    private int[] obstacleWeights;   // TODO ステージのデータからもらうようにする
+
+    [SerializeField]
+    private int generateCount;
 
 
     void Start() {
@@ -60,7 +69,7 @@ public class StageManager_Presenter : MonoBehaviour
             .Subscribe(x => {
                 // Hpゲージ更新
                 hpGaugeView.UpdatePlayerHpGauge(x.newValue, UserDataManager.instance.currentCharacter.maxHp, x.newValue - x.oldValue);
-                
+
                 if (UserDataManager.instance.Hp.Value <= 0) {
                     playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
                 }
@@ -68,6 +77,7 @@ public class StageManager_Presenter : MonoBehaviour
             .AddTo(this);
 
         // TODO 障害物の生成と List への登録
+        obstaclesList = obstacleGenerator.GenerateRandomObstacles(obstacleWeights, generateCount);
 
         // 障害物の HP の購読
         for (int i = 0; i < obstaclesList.Count; i++) {
@@ -75,8 +85,13 @@ public class StageManager_Presenter : MonoBehaviour
 
             // 障害物が破壊された時点で購読を止める
             obstaclesList[index].Hp
-                .Zip(obstaclesList[index].Hp.Skip(1), (oldValue, newValue) => new { oldValue, newValue})
-                .Subscribe(x => hpGaugeView.UpdateObstacleHpGauge(x.newValue, obstaclesList[index].maxHp, x.newValue - x.oldValue)).AddTo(obstaclesList[index].gameObject);
+                .Zip(obstaclesList[index].Hp.Skip(1), (oldValue, newValue) => new { oldValue, newValue })
+                .Subscribe(x => {
+                    hpGaugeView.UpdateObstacleHpGauge(x.newValue, obstaclesList[index].maxHp, x.newValue - x.oldValue);
+                    
+                    // TODO List から抜きたいが、Skip があるため、上手く制御できない。別の方法を検討する
+
+                }).AddTo(obstaclesList[index].gameObject);
         }
     }
 }

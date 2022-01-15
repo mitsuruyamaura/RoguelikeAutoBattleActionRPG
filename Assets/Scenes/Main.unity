@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MrClockworkIdleDown (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7952196428734863150, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: m_GravityScale
       value: 0
@@ -374,6 +378,10 @@ PrefabInstance:
     - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: m_Name
       value: MrClockworkIdleDown (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4098408705858528695, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: speed
@@ -1283,6 +1291,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MrClockworkIdleDown
       objectReference: {fileID: 0}
+    - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4098408705858528695, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: speed
       value: 0
@@ -1297,17 +1309,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
---- !u!114 &418441441 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4098408705858528695, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
-  m_PrefabInstance: {fileID: 418441440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f0e045bf25b2d44e9d2b1373945a10b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &418441442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2784364374751078385, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
@@ -5370,6 +5371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MrClockworkIdleDown (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2784364374751078396, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4098408705858528695, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
       propertyPath: speed
       value: 0
@@ -6032,17 +6037,6 @@ RectTransform:
   m_AnchoredPosition: {x: -950, y: -240}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1218292900 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4098408705858528695, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
-  m_PrefabInstance: {fileID: 942204865}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f0e045bf25b2d44e9d2b1373945a10b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1223967666
 GameObject:
   m_ObjectHideFlags: 0
@@ -7875,8 +7869,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1810196522}
+  - component: {fileID: 1810196523}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ObstacleGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7896,6 +7891,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1810196523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810196521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c610f742f5019d498a1d9fe0834c056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleBasePrefabs:
+  - {fileID: 4098408705858528695, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
+  - {fileID: 9015459756609570138, guid: c6f9e45420d5d0546b2cb54d85a49c05, type: 3}
+  - {fileID: 3677380221108407028, guid: 01c043ef7f1b135469d33be98a25cc35, type: 3}
+  - {fileID: 8114822726038615675, guid: c7a68581aabd5244ab8b9c495700fc76, type: 3}
+  tileMapCollision: {fileID: 686338656}
+  obstacleTran: {fileID: 962048244}
+  row: 20
+  column: 12
 --- !u!1 &1852807004
 GameObject:
   m_ObjectHideFlags: 0
@@ -8189,10 +8205,16 @@ MonoBehaviour:
   playerController: {fileID: 8649533788436402317}
   cameraController: {fileID: 585990373}
   hpGaugeView: {fileID: 36981993}
+  obstacleGenerator: {fileID: 1810196523}
   obstaclesList:
-  - {fileID: 418441441}
-  - {fileID: 1218292900}
-  - {fileID: 2100019140}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  obstacleWeights: 2c0100003c0000001e00000064000000
+  generateCount: 15
 --- !u!4 &1931824809
 Transform:
   m_ObjectHideFlags: 0
@@ -21999,17 +22021,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &2100019140 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4098408705858528695, guid: ae4b54815eeaa754880e40d68c356f39, type: 3}
-  m_PrefabInstance: {fileID: 191685643}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f0e045bf25b2d44e9d2b1373945a10b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2104398964
 GameObject:
   m_ObjectHideFlags: 0
@@ -22230,6 +22241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 1368924990348096841, guid: 4bd8a8d9a42342346b6aa1780a6f2719, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bd8a8d9a42342346b6aa1780a6f2719, type: 3}
 --- !u!4 &1368924990120879678 stripped
@@ -22425,6 +22440,10 @@ PrefabInstance:
     - target: {fileID: 8114822726038615674, guid: c7a68581aabd5244ab8b9c495700fc76, type: 3}
       propertyPath: m_Name
       value: Tree_Mid
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114822726038615674, guid: c7a68581aabd5244ab8b9c495700fc76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8114822726038615679, guid: c7a68581aabd5244ab8b9c495700fc76, type: 3}
       propertyPath: m_RootOrder
@@ -22649,17 +22668,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_Big
       objectReference: {fileID: 0}
+    - target: {fileID: 9015459756609570137, guid: c6f9e45420d5d0546b2cb54d85a49c05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9015459756609570142, guid: c6f9e45420d5d0546b2cb54d85a49c05, type: 3}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9015459756609570142, guid: c6f9e45420d5d0546b2cb54d85a49c05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.36
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 9015459756609570142, guid: c6f9e45420d5d0546b2cb54d85a49c05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.63
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9015459756609570142, guid: c6f9e45420d5d0546b2cb54d85a49c05, type: 3}
       propertyPath: m_LocalPosition.z
