@@ -722,8 +722,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleEffectPrefabs:
-  - {fileID: 6837986847349945024, guid: 5bdfad5885edcc94b888f4412d10aba1, type: 3}
-  - {fileID: 6353170185513223064, guid: f5ce8be8e75c70944b5f81f3ecb1f95d, type: 3}
+  - {fileID: 9085055561202505119, guid: 5bdfad5885edcc94b888f4412d10aba1, type: 3}
+  - {fileID: 5494750756538987061, guid: f5ce8be8e75c70944b5f81f3ecb1f95d, type: 3}
+  floatingMessagePrefab: {fileID: 4224352570189497673, guid: 78ebf22fb0c127d47a83410b85b21766, type: 3}
 --- !u!4 &341747116
 Transform:
   m_ObjectHideFlags: 0

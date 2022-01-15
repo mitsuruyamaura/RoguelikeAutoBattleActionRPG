@@ -125,9 +125,9 @@ public class PlayerController : MonoBehaviour
         // ズームイン(自動で購読させるので、不要)
 
         // バトル時のエフェクト表示
-        GameObject[] effect = new GameObject[EffectManager.instance.GetEffect(EffectType.Battle).Length];
+        EffectBase[] effect = new EffectBase[EffectManager.instance.GetEffects(EffectType.Battle).Length];
         for (int i = 0; i < effect.Length; i++) {
-            effect[i] = Instantiate(EffectManager.instance.GetEffect(EffectType.Battle)[i], transform.position, EffectManager.instance.GetEffect(EffectType.Battle)[i].transform.rotation);
+            effect[i] = Instantiate(EffectManager.instance.GetEffects(EffectType.Battle)[i], transform.position, EffectManager.instance.GetEffects(EffectType.Battle)[i].transform.rotation);
         }
 
         // バトル監視
@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
             // Hp ゲージの同期(自動で購読させるので、不要)
 
-            // フローティングメッセージの生成
+            // フローティングメッセージの生成(自動で購読させるので、不要)
 
             if (enemy.Hp.Value <= 0) {
                 currentPlayerState = PlayerState.Result;
@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
 
         // バトルのエフェクトを破棄
         for (int i = 0; i < effect.Length; i++) {
-            Destroy(effect[i]);
+            Destroy(effect[i].gameObject);
         }
 
         // ズームアウト(自動で購読させるので、不要)

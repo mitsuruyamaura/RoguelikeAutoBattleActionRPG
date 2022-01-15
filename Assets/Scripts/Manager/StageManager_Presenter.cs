@@ -56,9 +56,10 @@ public class StageManager_Presenter : MonoBehaviour
 
         // ÉvÉåÉCÉÑÅ[ÇÃ HP ÇÃçwì«
         UserDataManager.instance.Hp
+            .Zip(UserDataManager.instance.Hp.Skip(1), (oldValue, newValue) => new { oldValue, newValue })
             .Subscribe(x => {
                 // HpÉQÅ[ÉWçXêV
-                hpGaugeView.UpdatePlayerHpGauge(x, UserDataManager.instance.currentCharacter.maxHp);
+                hpGaugeView.UpdatePlayerHpGauge(x.newValue, UserDataManager.instance.currentCharacter.maxHp, x.oldValue - x.newValue);
                 
                 if (UserDataManager.instance.Hp.Value <= 0) {
                     playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
@@ -73,7 +74,9 @@ public class StageManager_Presenter : MonoBehaviour
             int index = i;
 
             // è·äQï®Ç™îjâÛÇ≥ÇÍÇΩéûì_Ç≈çwì«Çé~ÇﬂÇÈ
-            obstaclesList[index].Hp.Subscribe(x => hpGaugeView.UpdateObstacleHpGauge(x, obstaclesList[index].maxHp)).AddTo(obstaclesList[index].gameObject);
+            obstaclesList[index].Hp
+                .Zip(obstaclesList[index].Hp.Skip(1), (oldValue, newValue) => new { oldValue, newValue})
+                .Subscribe(x => hpGaugeView.UpdateObstacleHpGauge(x.newValue, obstaclesList[index].maxHp, x.oldValue - x.newValue)).AddTo(obstaclesList[index].gameObject);
         }
     }
 }
