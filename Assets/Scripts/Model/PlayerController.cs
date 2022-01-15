@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
             .Subscribe(_ => Move()).AddTo(this);
 
         this.OnTriggerEnter2DAsObservable()
+            .Where(_ => currentPlayerState == PlayerState.Move || CurrentPlayerState.Value == PlayerState.Move)
             .Subscribe(col => {
             if (col.TryGetComponent(out ObstacleBase enemy)) {
                 StartCoroutine(AutoBattle(enemy));
