@@ -88,9 +88,14 @@ public class StageManager_Presenter : MonoBehaviour
                 .Zip(obstaclesList[index].Hp.Skip(1), (oldValue, newValue) => new { oldValue, newValue })
                 .Subscribe(x => {
                     hpGaugeView.UpdateObstacleHpGauge(x.newValue, obstaclesList[index].maxHp, x.newValue - x.oldValue);
-                    
-                    // TODO List から抜きたいが、Skip があるため、上手く制御できない。別の方法を検討する
 
+                    // TODO List から抜きたいが、Skip があるため、上手く制御できない。別の方法を検討する
+                    // 問題１。index がズレる。代入していてもズレる
+                    // 問題２。Skip の影響で、１回分待機が入り、HP 0 のタイミングで呼ばれないことがある
+                    //if (x.newValue <= 0) {
+                    //    obstaclesList[index].DestroyObstacle();
+                    //    obstaclesList.Remove(obstaclesList[index]);                        
+                    //}
                 }).AddTo(obstaclesList[index].gameObject);
         }
     }
