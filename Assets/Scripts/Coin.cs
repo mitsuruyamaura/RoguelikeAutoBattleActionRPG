@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class Coin : DropBoxBase
 {
-    protected override void TriggerDropBoxEffect(PlayerController_All playerController) {
-
-        playerController.CalculateCoin(itemValue);
+    protected override void TriggerDropBoxEffect(PlayerController playerController) {
+        CalculateCoin(itemValue);
 
         base.TriggerDropBoxEffect(playerController);
+    }
+
+    /// <summary>
+    /// コイン計算
+    /// </summary>
+    /// <param name="amount"></param>
+    public void CalculateCoin(int amount) {
+        UserDataManager.instance.User.Coin.Value += amount;
+        Debug.Log("コイン更新");
     }
 }

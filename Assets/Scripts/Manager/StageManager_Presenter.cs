@@ -27,12 +27,33 @@ public class StageManager_Presenter : MonoBehaviour
     [SerializeField]
     private int generateCount;
 
+    [SerializeField]
+    private TopUI_View uiManager;
+
 
     void Start() {
         // ユーザーが生成されていない場合には、ユーザーを作成
-        //if(UserDataManager.instance.user == null) {
-        //    UserDataManager.instance.user = User.CreateUser(60, 0, 1);
-        //}
+        if (UserDataManager.instance.User == null) {
+            UserDataManager.instance.User = User.CreateUser(60, 0, 1);
+        }
+
+        // コインとフードの購読
+        UserDataManager.instance.User.Coin
+            .Zip(UserDataManager.instance.User.Coin.Skip(1), (oldValue, newValue) => (oldValue, newValue))
+            .Subscribe(x => uiManager.UpdateDisplayCoin(x.oldValue, x.newValue)).AddTo(this);
+
+        UserDataManager.instance.User.Food
+            .Zip(UserDataManager.instance.User.Food.Skip(1), (oldValue, newValue) => (oldValue, newValue))
+            .Subscribe(x => {
+                uiManager.UpdateDisplayFood(x.oldValue, x.newValue);
+
+                if (UserDataManager.instance.User.Food.Value <= 0) {
+                    playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
+                }
+            }).AddTo(this);
+
+        UserDataManager.instance.User.Coin.SetValueAndForceNotify(UserDataManager.instance.User.Coin.Value);
+        UserDataManager.instance.User.Food.SetValueAndForceNotify(UserDataManager.instance.User.Food.Value);
 
         // キャラクターの設定。生成されていない場合には、キャラクターを作成
         if (UserDataManager.instance.CurrentCharacter == null) {

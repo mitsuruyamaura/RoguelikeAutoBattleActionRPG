@@ -274,7 +274,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
 
         // フードの情報を UserDataManager に保持
-        UserDataManager.instance.user.Food.Value += bonusPoint;
+        UserDataManager.instance.User.Food.Value += bonusPoint;
 
         //GameData.instance.coin = Coin.Value;
         //GameData.instance.food = Food.Value + bonusPoint;
@@ -296,6 +296,7 @@ public class PlayerController : MonoBehaviour
         DropBoxBase item = Instantiate(itemPrefab, new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
         item.SetUpDropBox();
     }
+
 
     /***** UniRX を使わない場合  *****/
 

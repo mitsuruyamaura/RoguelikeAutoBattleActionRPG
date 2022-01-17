@@ -18,7 +18,8 @@ public class Character
 
     public static Character CreateChara() {
         return new Character() {
-            maxHp = 10
+            maxHp = 10,
+            maxFood = 180
         };
     }
 }
