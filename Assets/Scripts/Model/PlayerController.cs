@@ -60,12 +60,12 @@ public class PlayerController : MonoBehaviour
             .Where(_ => rb && currentPlayerState == PlayerState.Move || CurrentPlayerState.Value == PlayerState.Move)
             .Subscribe(_ => Move()).AddTo(this);
 
-        this.OnTriggerEnter2DAsObservable()
+        this.OnCollisionEnter2DAsObservable()
             .Where(_ => currentPlayerState == PlayerState.Move || CurrentPlayerState.Value == PlayerState.Move)
             .Subscribe(col => {
-            if (col.TryGetComponent(out ObstacleBase enemy)) {
-                StartCoroutine(AutoBattle(enemy));
-            }
+                if (col.gameObject.TryGetComponent(out ObstacleBase enemy)) {
+                    StartCoroutine(AutoBattle(enemy));
+                }
         }).AddTo(this);
     }
 
@@ -101,18 +101,17 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 自動バトル
     /// </summary>
-    /// <param name="enemy"></param>
+    /// <param name="obstacle"></param>
     /// <returns></returns>
-    private IEnumerator AutoBattle(ObstacleBase enemy) {
+    private IEnumerator AutoBattle(ObstacleBase obstacle) {
 
         Debug.Log("バトル開始");
 
         // 双方の Hp ゲージが表示中か確認　アニメ中なら停止(自動で購読させるので、不要)
 
+        obstacle.PrapareBattle();
 
-        enemy.PrapareBattle();
-
-        // 敵のHp ゲージを最大値にする(自動で購読させるので、不要)
+        // 障害物のHp ゲージを最大値にする(自動で購読させるので、不要)
 
         // プレイヤーの移動を停止
         rb.velocity = Vector2.zero;
@@ -139,6 +138,9 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
 
+            // 同じ値を通知
+            IsPause.SetValueAndForceNotify(false);
+
             // カメラ振動(自動で購読させるので、不要)
 
             // 使用するスキル決定
@@ -159,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
 
             // 攻撃順番確認
-            if (totalAttackSpeed >= enemy.attackSpeed) {
+            if (totalAttackSpeed >= obstacle.attackSpeed) {
                 AttackPlayer(); // TODO SkillData 渡す
                 yield return new WaitForSeconds(0.25f);
                 AttackEnemy();
@@ -180,14 +182,14 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log(totalAttackPower);
 
-            enemy.Hp.Value -= totalAttackPower;
-            Debug.Log("敵の残り HP : " + enemy.Hp);
+            obstacle.Hp.Value -= totalAttackPower;
+            Debug.Log("障害物の残り HP : " + obstacle.Hp);
 
             // Hp ゲージの同期(自動で購読させるので、不要)
 
             // フローティングメッセージの生成(自動で購読させるので、不要)
 
-            if (enemy.Hp.Value <= 0) {
+            if (obstacle.Hp.Value <= 0) {
                 currentPlayerState = PlayerState.Result;
                 CurrentPlayerState.Value = PlayerState.Result;
             }
@@ -201,7 +203,7 @@ public class PlayerController : MonoBehaviour
         }
 
         void AttackEnemy() {
-            UserDataManager.instance.Hp.Value -= enemy.AttackPower;
+            UserDataManager.instance.Hp.Value -= obstacle.AttackPower;
             Debug.Log("プレイヤーの残り HP : " + UserDataManager.instance.Hp.Value);
 
             // HP ゲージが表示されている場合には、ゲージの移動処理を止める
@@ -228,11 +230,21 @@ public class PlayerController : MonoBehaviour
         // リザルト処理入れる(それまで hp を見せておく)
         if (currentPlayerState == PlayerState.Result || CurrentPlayerState.Value == PlayerState.Result) {
 
-           // ドロップアイテムがあるか判定
+            // ゴール地点の設定がある場合、ゴールを生成する
+            if (obstacle.isGoal) {
+                DropBoxBase goal = Instantiate(DropItemManager.instance.GetDropItemPrefab(ItemType.Goal),
+                    new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
+                goal.SetUpDropBox();
+            }
 
+            // ドロップアイテムがあるか判定
+
+
+            // コインかフードの生成
+            GenerateNormalItem();
         }
 
-        enemy.DestroyObstacle();
+        obstacle.DestroyObstacle();
 
         // トレジャー選択ウインドウが閉じるまで待機
 
@@ -249,6 +261,42 @@ public class PlayerController : MonoBehaviour
 
         // HP ゲージを画面外へ移動(自動で購読させるので、不要)
     }
+
+    /// <summary>
+    /// 次のステージへ遷移する準備
+    /// </summary>
+    /// <param name="bonusPoint"></param>
+
+    public void PrepareNextStage(int bonusPoint) {
+        Debug.Log("ステージクリア");
+
+        currentPlayerState = PlayerState.GameUp;
+        rb.velocity = Vector2.zero;
+
+        // フードの情報を UserDataManager に保持
+        UserDataManager.instance.User.Food.Value += bonusPoint;
+
+        //GameData.instance.coin = Coin.Value;
+        //GameData.instance.food = Food.Value + bonusPoint;
+        //GameData.instance.hp = hp;
+
+        // ズームイン(自動で購読させるので、不要)
+        //StartCoroutine(ChangeCameraOrthoSize(zoomLensOrthoSize));
+
+        //dataBase.NextStage();
+
+        SceneStateManager.instance.PrepareNextScene(SceneName.Main);
+    }
+
+    /// <summary>
+    /// お金かフードを生成
+    /// </summary>
+    private void GenerateNormalItem() {
+        DropBoxBase itemPrefab = DropItemManager.instance.GetDropItemPrefab(Random.Range(0, 100) > 50 ?  ItemType.Coin : ItemType.Food);
+        DropBoxBase item = Instantiate(itemPrefab, new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
+        item.SetUpDropBox();
+    }
+
 
     /***** UniRX を使わない場合  *****/
 

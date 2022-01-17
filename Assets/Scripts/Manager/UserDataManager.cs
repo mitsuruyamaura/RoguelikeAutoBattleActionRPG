@@ -10,9 +10,11 @@ public class UserDataManager : MonoBehaviour
 {
     public static UserDataManager instance;
 
-    public User user;
+    private User user;
+    public User User { get => user; set => user = value; }
 
-    public Character currentCharacter;
+    private Character currentCharacter;
+    public Character CurrentCharacter { get => currentCharacter; set => currentCharacter = value; }
 
     public ReactiveProperty<int> Hp = new ReactiveProperty<int>();
 

@@ -63,7 +63,8 @@ public class CameraController : MonoBehaviour
     /// <returns></returns>
     public IEnumerator ChangeCameraOrthoSize(PlayerController.PlayerState playerState) {
 
-        float value = playerState == PlayerController.PlayerState.Battle_Before ? zoomLensOrthoSize : originLensOrthoSize;
+        // シーン遷移とバトル開始時はズームイン、バトル終了時はズームアウト
+        float value = playerState == PlayerController.PlayerState.Battle_After ? originLensOrthoSize : zoomLensOrthoSize;
 
         DOTween.To(
             () => virtualCamera.m_Lens.OrthographicSize,
@@ -80,5 +81,6 @@ public class CameraController : MonoBehaviour
     public void ImpulseCamera() {
         // カメラ振動
         impulseSource.GenerateImpulse();
+        Debug.Log("カメラ振動");
     }
 }
