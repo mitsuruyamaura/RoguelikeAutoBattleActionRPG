@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalPointPrefab: {fileID: 3452185006901380937, guid: 6217a403292b3df4690f710e9f239dd8, type: 3}
+  coinPrefab: {fileID: 2888153710990242847, guid: 0ebd10e92276631499a031eba5f214ab, type: 3}
+  foodPrefab: {fileID: 8646090611759594931, guid: 877375c952ea4a444986572659b5075f, type: 3}
 --- !u!4 &19986949
 Transform:
   m_ObjectHideFlags: 0
@@ -1835,18 +1837,6 @@ MonoBehaviour:
       value: 0
     Level:
       value: 0
-  currentCharacter:
-    no: 0
-    name: 
-    maxHp: 0
-    maxFood: 0
-    moveSpeed: 0
-    attackPower: 0
-    critacalRate: 0
-    doubleStrikeRate: 0
-    attackSpeed: 0
-    rarity: 0
-    charaSprite: {fileID: 0}
   Hp:
     value: 0
 --- !u!4 &669182695
