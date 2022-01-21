@@ -74,8 +74,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Move() {
         Vector2 dir = new Vector3(horizontal, vertical).normalized;
-        float speed = Input.GetKey(KeyCode.LeftShift) ? moveSpeed * 2.0f : moveSpeed;
-        speed = isDash ? moveSpeed * 2.0f : moveSpeed;
+        float speed = isDash ? moveSpeed * 2.0f : moveSpeed;
 
         rb.velocity = dir * speed;
     }
@@ -143,32 +142,32 @@ public class PlayerController : MonoBehaviour
 
             // カメラ振動(自動で購読させるので、不要)
 
-            // 使用するスキル決定
+            // 使用するスキル決定(スキルの番号を指定すると、そのスキルを利用。それ以外はランダム)
+            SkillData useSkillData = UserDataManager.instance.GetUseSkillData();
+            Debug.Log("使用スキル : " + useSkillData.name);
 
             // TODO アーティファクトによる攻撃速度を加算
             int totalAttackSpeed = Random.Range(3, 10);
 
             // 攻撃回数カウント
+            UserDataManager.instance.currentUseCount++;
 
-
-            // 指定した回数攻撃を行ったら
-
-
+            // TODO 指定した回数攻撃を行ったら(購読する形に変える)
+            
             // TODO ボーナスの候補
             // アーティファクト購入用のポイント獲得 => 任意のベース能力値アップ
             // 武器のレアリティ基準のアーティファクトを１つランダムで入手
 
 
-
             // 攻撃順番確認
             if (totalAttackSpeed >= obstacle.attackSpeed) {
-                AttackPlayer(); // TODO SkillData 渡す
+                AttackPlayer(useSkillData);
                 yield return new WaitForSeconds(0.25f);
                 AttackEnemy();
             } else {
                 AttackEnemy();
                 yield return new WaitForSeconds(0.25f);
-                AttackPlayer(); // TODO SkillData 渡す
+                AttackPlayer(useSkillData);
             }
             yield return new WaitForSeconds(0.25f);
         }
@@ -252,7 +251,6 @@ public class PlayerController : MonoBehaviour
 
         currentPlayerState = PlayerState.Battle_After;
         CurrentPlayerState.Value = PlayerState.Battle_After;
-
 
         yield return new WaitForSeconds(0.25f);
 
