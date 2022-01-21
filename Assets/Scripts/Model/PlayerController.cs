@@ -73,6 +73,11 @@ public class PlayerController : MonoBehaviour
     /// 移動
     /// </summary>
     private void Move() {
+        if (currentPlayerState == PlayerState.GameUp) {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         Vector2 dir = new Vector3(horizontal, vertical).normalized;
         float speed = isDash ? moveSpeed * 2.0f : moveSpeed;
 
@@ -231,9 +236,9 @@ public class PlayerController : MonoBehaviour
 
             // ゴール地点の設定がある場合、ゴールを生成する
             if (obstacle.isGoal) {
-                DropBoxBase goal = Instantiate(DropItemManager.instance.GetDropItemPrefab(ItemType.Goal),
-                    new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
-                goal.SetUpDropBox();
+                DropItemManager.instance.GenerateDropItem(ItemType.Goal, new Vector2(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f)));
+                //DropBoxBase goal = Instantiate(DropItemManager.instance.GetDropItemPrefab(ItemType.Goal),
+                //    new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
             }
 
             // ドロップアイテムがあるか判定
@@ -261,38 +266,14 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// 次のステージへ遷移する準備
-    /// </summary>
-    /// <param name="bonusPoint"></param>
-
-    public void PrepareNextStage(int bonusPoint) {
-        Debug.Log("ステージクリア");
-
-        currentPlayerState = PlayerState.GameUp;
-        rb.velocity = Vector2.zero;
-
-        // フードの情報を UserDataManager に保持
-        UserDataManager.instance.CalculateFood(bonusPoint);
-
-        //GameData.instance.coin = Coin.Value;
-        //GameData.instance.food = Food.Value + bonusPoint;
-        //GameData.instance.hp = hp;
-
-        // ズームイン(自動で購読させるので、不要)
-        //StartCoroutine(ChangeCameraOrthoSize(zoomLensOrthoSize));
-
-        //dataBase.NextStage();
-
-        SceneStateManager.instance.PrepareNextScene(SceneName.Main);
-    }
-
-    /// <summary>
     /// お金かフードを生成
     /// </summary>
     private void GenerateNormalItem() {
-        DropBoxBase itemPrefab = DropItemManager.instance.GetDropItemPrefab(Random.Range(0, 100) > 50 ?  ItemType.Coin : ItemType.Food);
-        DropBoxBase item = Instantiate(itemPrefab, new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
-        item.SetUpDropBox();
+        DropItemManager.instance.GenerateDropItem(Random.Range(0, 100) > 50 ? ItemType.Coin : ItemType.Food, 
+            new Vector2(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f)));
+
+        //DropBoxBase itemPrefab = DropItemManager.instance.GetDropItemPrefab(Random.Range(0, 100) > 50 ?  ItemType.Coin : ItemType.Food);
+        //DropBoxBase item = Instantiate(itemPrefab, new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
     }
 
 

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Coin : DropBoxBase
 {
-    protected override void TriggerDropBoxEffect(PlayerController playerController) {
+    public override void TriggerDropBoxEffect(StageManager_Presenter presenter) {
         UserDataManager.instance.CalculateCoin(itemValue);
 
-        base.TriggerDropBoxEffect(playerController);
+        base.TriggerDropBoxEffect(presenter);
     }
 }

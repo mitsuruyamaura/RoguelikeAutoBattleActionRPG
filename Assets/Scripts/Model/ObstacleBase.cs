@@ -29,6 +29,9 @@ public class ObstacleBase : MonoBehaviour
     }
     public ObstacleState cururentObstacleState;
 
+    public ObstacleType obstacleType;
+    public bool isGoal;
+
 
     void Start() {
 
