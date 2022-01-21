@@ -63,6 +63,11 @@ public class StageManager_Presenter : MonoBehaviour
             UserDataManager.instance.Hp.Value = UserDataManager.instance.CurrentCharacter.maxHp;
         }
 
+        // 初期武器の設定。設定されていないのみ設定
+        if (UserDataManager.instance.CurrentWeapon == null) {
+            UserDataManager.instance.SetUpWeapon();
+        }
+
         hpGaugeView.UpdatePlayerHpGauge(UserDataManager.instance.Hp.Value, UserDataManager.instance.CurrentCharacter.maxHp, UserDataManager.instance.Hp.Value);
 
         // プレイヤーのステートを購読し、バトルかリザルト時にカメラのズームを行う(ReactivePropertyの場合)
