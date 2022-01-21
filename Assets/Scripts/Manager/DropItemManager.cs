@@ -39,4 +39,14 @@ public class DropItemManager : MonoBehaviour
             _ => null
         };
     }
+
+    /// <summary>
+    /// 指定されたアイテムの生成
+    /// </summary>
+    /// <param name="itemType"></param>
+    /// <param name="generatePos"></param>
+    public void GenerateDropItem(ItemType itemType, Vector2 generatePos) {
+        DropBoxBase dropItem = Instantiate(GetDropItemPrefab(itemType), generatePos, Quaternion.identity);
+
+    }
 }

@@ -30,6 +30,13 @@ public class StageManager_Presenter : MonoBehaviour
     [SerializeField]
     private TopUI_View uiManager;
 
+    [SerializeField]
+    private WeaponSelectPopUp weaponSelectPopUpPrefab;
+    [SerializeField]
+    private Transform canvasTran;
+
+    private WeaponSelectPopUp weaponSelectPopUp;
+
 
     void Start() {
         // ユーザーが生成されていない場合には、ユーザーを作成
@@ -146,5 +153,32 @@ public class StageManager_Presenter : MonoBehaviour
                     //}
                 }).AddTo(obstaclesList[index].gameObject);
         }
+
+        // 武器取得時のポップアップの生成
+        weaponSelectPopUp = Instantiate(weaponSelectPopUpPrefab, canvasTran, false);
+        weaponSelectPopUp.SetUpPopUp(UserDataManager.instance.CurrentWeapon);
+
+        // ドロップアイテムの取得
+        playerController.OnTriggerEnter2DAsObservable()
+            .Subscribe(col => {
+                if (col.TryGetComponent(out DropBoxBase dropItem)) {
+                    dropItem.TriggerDropBoxEffect(this);
+                }
+            }).AddTo(playerController.gameObject);
+    }
+
+    /// <summary>
+    /// ステージクリア処理と、次のステージへ遷移する準備
+    /// </summary>
+    /// <param name="bonusPoint"></param>
+    public void ClearStage(int bonusPoint) {
+        Debug.Log("ステージクリア");
+
+        playerController.currentPlayerState = PlayerController.PlayerState.GameUp;
+
+        // フードの情報を UserDataManager に保持
+        UserDataManager.instance.CalculateFood(bonusPoint);
+
+        SceneStateManager.instance.PrepareNextScene(SceneName.Main);
     }
 }
