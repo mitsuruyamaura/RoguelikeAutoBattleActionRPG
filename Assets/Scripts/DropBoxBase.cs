@@ -29,38 +29,42 @@ public class DropBoxBase : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    protected virtual void TriggerDropBoxEffect(PlayerController playerController) {
+    public virtual void TriggerDropBoxEffect() {
 
         Destroy(gameObject);
     }
 
+    public virtual void TriggerDropBoxEffect(StageManager_Presenter presenter) {
 
-    public virtual void SetUpDropBox() {
-
-        this.OnTriggerEnter2DAsObservable()
-            .Subscribe(col => {
-                if (col.TryGetComponent(out PlayerController_All playerController)) {
-                    TriggerDropBoxEffect(playerController);
-                }
-                if (col.TryGetComponent(out PlayerController player)) {
-                    TriggerDropBoxEffect(player);
-                }
-            }).AddTo(this);
-
-        this.OnDestroyAsObservable()
-            .Subscribe(_ => Debug.Log("Žæ“¾ ”j‰ó‚³‚ê‚Ü‚µ‚½")); ;
+        Destroy(gameObject);
     }
 
-    public virtual void SetUpDropBox<T>(T t) {
+    //public virtual void SetUpDropBox() {
 
-        this.OnTriggerEnter2DAsObservable()
-            .Subscribe(col => {
-                if (col.TryGetComponent(out PlayerController_All playerController)) {
-                    TriggerDropBoxEffect(playerController);
-                }
-            }).AddTo(this);
+    //    this.OnTriggerEnter2DAsObservable()
+    //        .Subscribe(col => {
+    //            if (col.TryGetComponent(out PlayerController_All playerController)) {
+    //                TriggerDropBoxEffect(playerController);
+    //            }
+    //            if (col.TryGetComponent(out PlayerController player)) {
+    //                TriggerDropBoxEffect(player);
+    //            }
+    //        }).AddTo(this);
 
-        this.OnDestroyAsObservable()
-            .Subscribe(_ => Debug.Log("Žæ“¾ ”j‰ó‚³‚ê‚Ü‚µ‚½")); ;
-    }
+    //    this.OnDestroyAsObservable()
+    //        .Subscribe(_ => Debug.Log("Žæ“¾ ”j‰ó‚³‚ê‚Ü‚µ‚½")); ;
+    //}
+
+    //public virtual void SetUpDropBox<T>(T t) {
+
+    //    this.OnTriggerEnter2DAsObservable()
+    //        .Subscribe(col => {
+    //            if (col.TryGetComponent(out PlayerController_All playerController)) {
+    //                TriggerDropBoxEffect(playerController);
+    //            }
+    //        }).AddTo(this);
+
+    //    this.OnDestroyAsObservable()
+    //        .Subscribe(_ => Debug.Log("Žæ“¾ ”j‰ó‚³‚ê‚Ü‚µ‚½")); ;
+    //}
 }

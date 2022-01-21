@@ -1404,7 +1404,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9986979, y: 1}
+    m_SensorSize: {x: 2, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10266,6 +10266,8 @@ MonoBehaviour:
   obstacleWeights: 2c0100003c0000001e00000096000000
   generateCount: 15
   uiManager: {fileID: 2083083857}
+  weaponSelectPopUpPrefab: {fileID: 9069066675529514719, guid: 39be57037c7d25d40baff515cff42ccb, type: 3}
+  canvasTran: {fileID: 36981997}
 --- !u!4 &1931824809
 Transform:
   m_ObjectHideFlags: 0
