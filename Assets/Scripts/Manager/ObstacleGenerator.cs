@@ -25,6 +25,7 @@ public class ObstacleGenerator : MonoBehaviour
         List<ObstacleBase> obstaclesList = new List<ObstacleBase>();
 
         int totalWeight = weights.Sum();
+        List<ObstacleBase> goalList = new List<ObstacleBase>();
 
         for (int i = -row + 1; i < row -1; i++) {
             for (int j = -column + 1; j < column - 1;j++) {
@@ -64,6 +65,11 @@ public class ObstacleGenerator : MonoBehaviour
                 obstacle.SetUpObstacleBase(ObstacleBase.ObstacleState.Stop);
                 obstaclesList.Add(obstacle);
 
+                // ˆÚ“®‚µ‚È‚¢áŠQ•¨‚ÍƒS[ƒ‹’n“_‚ÌŒó•â‚Æ‚·‚é
+                if (obstacle.obstacleType == ObstacleType.Immovable) {
+                    goalList.Add(obstacle);
+                }
+
                 generateCount--;
 
                 break;
@@ -75,6 +81,9 @@ public class ObstacleGenerator : MonoBehaviour
                 break;
             }
         }
+
+        // ƒS[ƒ‹—páŠQ•¨Ý’èB”j‰ó‚·‚é‚ÆƒS[ƒ‹’n“_‚ª¶¬‚³‚ê‚é
+        goalList[Random.Range(0, goalList.Count)].isGoal = true;
 
         return obstaclesList;
     }
