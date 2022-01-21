@@ -103,11 +103,13 @@ public class HpGauge_View : MonoBehaviour
     public void UpdatePlayerHpGauge(float hp, float maxHp, int amount, bool isGain = false) {
         imgPlayerHpGauge.DOFillAmount((float)hp / maxHp, 0.25f).SetEase(Ease.Linear);
 
-        EffectBase playerFloatingMessage = Instantiate(EffectManager.instance.GetEffect(EffectType.FloatingMessage), playerHpGaugeTrans[1].transform, false);
+        if (hp != amount) {
+            EffectBase playerFloatingMessage = Instantiate(EffectManager.instance.GetEffect(EffectType.FloatingMessage), playerHpGaugeTrans[1].transform, false);
 
-        if (amount > 0) {
-            isGain = true;
+            if (amount > 0) {
+                isGain = true;
+            }
+            playerFloatingMessage.TriggerEffect(amount, false, isGain);
         }
-        playerFloatingMessage.TriggerEffect(amount, false, isGain);
     }
 }

@@ -274,7 +274,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
 
         // ƒt[ƒh‚Ìî•ñ‚ğ UserDataManager ‚É•Û
-        UserDataManager.instance.User.Food.Value += bonusPoint;
+        UserDataManager.instance.CalculateFood(bonusPoint);
 
         //GameData.instance.coin = Coin.Value;
         //GameData.instance.food = Food.Value + bonusPoint;

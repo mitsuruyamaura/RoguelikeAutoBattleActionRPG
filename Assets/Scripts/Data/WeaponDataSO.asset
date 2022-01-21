@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381b25a3ea9982046a82b146a7403e8b, type: 3}
+  m_Name: WeaponDataSO
+  m_EditorClassIdentifier: 
+  weaponDatasList:
+  - no: 0
+    name: "\u9285\u306E\u77ED\u5263"
+    useCount: 3
+    rarity: 0
+    weight: 50
+    skillNos: 0,1,2
+    skillDatasList:
+    - name: a
+      no: 0
+      weight: 100
+      count: -6
+      rarity: 0
+      attackPower: 18
+      criticalRate: 10
+      doubleStrikeRate: 0
+      attackSpeed: 3
+      lifeUp: 0
+    - name: b
+      no: 1
+      weight: 80
+      count: -2
+      rarity: 0
+      attackPower: 27
+      criticalRate: 5
+      doubleStrikeRate: 5
+      attackSpeed: 2
+      lifeUp: 0
+    - name: c
+      no: 2
+      weight: 60
+      count: -4
+      rarity: 0
+      attackPower: 9
+      criticalRate: 15
+      doubleStrikeRate: 0
+      attackSpeed: 2
+      lifeUp: 0
+  - no: 1
+    name: "\u30D5\u30EC\u30A4\u30EB"
+    useCount: 2
+    rarity: 0
+    weight: 40
+    skillNos: 1,2,4
+    skillDatasList:
+    - name: b
+      no: 1
+      weight: 80
+      count: -2
+      rarity: 0
+      attackPower: 27
+      criticalRate: 5
+      doubleStrikeRate: 5
+      attackSpeed: 2
+      lifeUp: 0
+    - name: c
+      no: 2
+      weight: 60
+      count: -4
+      rarity: 0
+      attackPower: 9
+      criticalRate: 15
+      doubleStrikeRate: 0
+      attackSpeed: 2
+      lifeUp: 0
+    - name: e
+      no: 4
+      weight: 70
+      count: -2
+      rarity: 1
+      attackPower: 81
+      criticalRate: 10
+      doubleStrikeRate: 0
+      attackSpeed: 4
+      lifeUp: 0
+  - no: 2
+    name: "\u30A6\u30A9\u30FC\u30CF\u30F3\u30DE\u30FC"
+    useCount: 2
+    rarity: 0
+    weight: 30
+    skillNos: 0,2,3
+    skillDatasList:
+    - name: a
+      no: 0
+      weight: 100
+      count: -6
+      rarity: 0
+      attackPower: 162
+      criticalRate: 10
+      doubleStrikeRate: 0
+      attackSpeed: 3
+      lifeUp: 0
+    - name: c
+      no: 2
+      weight: 60
+      count: -4
+      rarity: 0
+      attackPower: 9
+      criticalRate: 15
+      doubleStrikeRate: 0
+      attackSpeed: 2
+      lifeUp: 0
+    - name: d
+      no: 3
+      weight: 10
+      count: 2
+      rarity: 0
+      attackPower: 6
+      criticalRate: 0
+      doubleStrikeRate: 20
+      attackSpeed: 7
+      lifeUp: 0
+  - no: 3
+    name: "\u30B0\u30EC\u30FC\u30C8\u30BD\u30FC\u30C9"
+    useCount: 4
+    rarity: 1
+    weight: 40
+    skillNos: 3,4,8
+    skillDatasList: []
+  - no: 4
+    name: "\u706B\u7114\u306E\u6756"
+    useCount: 4
+    rarity: 1
+    weight: 30
+    skillNos: 5,6,7
+    skillDatasList: []
