@@ -242,10 +242,20 @@ public class PlayerController : MonoBehaviour
             }
 
             // ドロップアイテムがあるか判定
+            (bool isDropTreasure, Rarity[] rarities) = obstacle.JudgeDropTreasure();
 
+            if (isDropTreasure) {
 
-            // コインかフードの生成
-            GenerateNormalItem();
+                WeaponData[] weaponDatas = new WeaponData[rarities.Length];
+
+                weaponDatas = DataBaseManager.instance.GetWeaponDataByRarity(rarities);
+                DropBoxBase treasure = DropItemManager.instance.GenerateDropItem(ItemType.Weapon, new Vector2(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f)));
+                treasure.GetComponent<Treasure>().SetUpTreasure(weaponDatas);
+            } else {
+
+                // コインかフードの生成
+                GenerateNormalItem();
+            }
         }
 
         obstacle.DestroyObstacle();

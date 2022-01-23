@@ -12,6 +12,9 @@ public class EffectManager : MonoBehaviour
     [SerializeField]
     private EffectBase floatingMessagePrefab;
 
+    [SerializeField]
+    private EffectBase trasureEffectPrefab;
+
 
     void Awake() {
         if (instance == null) {
@@ -42,6 +45,7 @@ public class EffectManager : MonoBehaviour
     public EffectBase GetEffect(EffectType effectType) {
         return effectType switch {
             EffectType.FloatingMessage => floatingMessagePrefab,
+            EffectType.TresureDrop => trasureEffectPrefab,
             _ => null
         };
     }
