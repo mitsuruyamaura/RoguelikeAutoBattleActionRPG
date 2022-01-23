@@ -10,17 +10,17 @@ public class DropBoxBase : MonoBehaviour {
     [SerializeField]
     protected int itemValue;
 
-    public virtual void SetUpDropBox<T>(T[] t) {
+    public virtual void SetUpDropBox<T>(T[] t) where T : class {
 
-        this.OnTriggerEnter2DAsObservable()
-            .Subscribe(col => {
-                if (col.TryGetComponent(out PlayerController_All playerController)) {
-                    TriggerDropBoxEffect(playerController);
-                }
-            }).AddTo(this);
+        //this.OnTriggerEnter2DAsObservable()
+        //    .Subscribe(col => {
+        //        if (col.TryGetComponent(out PlayerController_All playerController)) {
+        //            TriggerDropBoxEffect(playerController);
+        //        }
+        //    }).AddTo(this);
 
-        this.OnDestroyAsObservable()
-            .Subscribe(_ => Debug.Log("Žæ“¾ ”j‰ó‚³‚ê‚Ü‚µ‚½"));
+        //this.OnDestroyAsObservable()
+        //    .Subscribe(_ => Debug.Log("Žæ“¾ ”j‰ó‚³‚ê‚Ü‚µ‚½"));
     }
 
 

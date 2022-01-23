@@ -155,6 +155,7 @@ MonoBehaviour:
   goalPointPrefab: {fileID: 3452185006901380937, guid: 6217a403292b3df4690f710e9f239dd8, type: 3}
   coinPrefab: {fileID: 2888153710990242847, guid: 0ebd10e92276631499a031eba5f214ab, type: 3}
   foodPrefab: {fileID: 8646090611759594931, guid: 877375c952ea4a444986572659b5075f, type: 3}
+  treasureWeaponPrefab: {fileID: 2927651156987535102, guid: 15932a352b0cebd4885851298d25f73d, type: 3}
 --- !u!4 &19986949
 Transform:
   m_ObjectHideFlags: 0
@@ -1052,6 +1053,7 @@ MonoBehaviour:
   - {fileID: 9085055561202505119, guid: 5bdfad5885edcc94b888f4412d10aba1, type: 3}
   - {fileID: 5494750756538987061, guid: f5ce8be8e75c70944b5f81f3ecb1f95d, type: 3}
   floatingMessagePrefab: {fileID: 4224352570189497673, guid: 78ebf22fb0c127d47a83410b85b21766, type: 3}
+  trasureEffectPrefab: {fileID: -8890059339089715533, guid: 0743a4cc72bedfa46a14708c121a4756, type: 3}
 --- !u!4 &341747116
 Transform:
   m_ObjectHideFlags: 0
@@ -6505,36 +6507,6 @@ RectTransform:
   m_AnchoredPosition: {x: 650, y: -240}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &982372102
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 982372103}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &982372103
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 982372102}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &999127191
 GameObject:
   m_ObjectHideFlags: 0

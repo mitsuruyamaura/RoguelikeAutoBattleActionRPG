@@ -46,4 +46,70 @@ public class DataBaseManager : MonoBehaviour
         }
         return list;
     }
+
+
+    /// <summary>
+    /// 重複させない武器データの抽出
+    /// </summary>
+    /// <param name="searchRarities"></param>
+    /// <returns></returns>
+    public WeaponData[] GetWeaponDataByRarity(Rarity[] searchRarities) {
+        List<WeaponData> commonList = weaponDataSO.weaponDatasList.Where(x => x.rarity == Rarity.Common).ToList();
+        List<WeaponData> uncommonList = weaponDataSO.weaponDatasList.Where(x => x.rarity == Rarity.Uncommon).ToList();
+
+        WeaponData[] weaponDatas = new WeaponData[searchRarities.Length];
+
+        for (int i = 0; i < searchRarities.Length; i++) {
+            (int randomValue, int loopCount) = (UnityEngine.Random.Range(0, GetTotalWeight(searchRarities[i])), GetListCount(searchRarities[i]));
+            //Debug.Log(GetTotalWeight(searchRarities[i]));
+            //Debug.Log(loopCount);
+
+            for (int x = 0; x < loopCount; x++) {
+
+                int totalWeight = GetTotalWeight(searchRarities[i]);
+
+                if (GetList(searchRarities[i])[x].weight > randomValue) {
+                    weaponDatas[i] = GetList(searchRarities[i])[x];
+
+                    // 重複防止
+                    GetList(searchRarities[i]).Remove(GetList(searchRarities[i])[x]);
+
+                    //Debug.Log(commonList.Count);
+                    //Debug.Log(uncommonList.Count);
+
+                    break;
+                } else {
+                    randomValue -= GetList(searchRarities[i])[x].weight;
+                }
+            }
+        }
+
+        return weaponDatas;
+
+
+        int GetTotalWeight(Rarity rarity) {
+            return rarity switch {
+                Rarity.Common => commonList.Sum(x => x.weight),
+                Rarity.Uncommon => uncommonList.Sum(x => x.weight),
+                _ => 0
+            };
+        }
+
+
+        int GetListCount(Rarity rarity) {
+            return rarity switch {
+                Rarity.Common => commonList.Count,
+                Rarity.Uncommon => uncommonList.Count,
+                _ => 0
+            };
+        }
+
+        List<WeaponData> GetList(Rarity rarity) {
+            return rarity switch {
+                Rarity.Common => commonList,
+                Rarity.Uncommon => uncommonList,
+                _ => null
+            };
+        }
+    }
 }

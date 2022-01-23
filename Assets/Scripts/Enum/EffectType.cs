@@ -7,5 +7,5 @@ public enum EffectType
     ItemGet,
     WeaponChange,
     FloatingMessage,
-
+    TresureDrop,
 }

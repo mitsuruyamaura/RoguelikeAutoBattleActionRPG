@@ -15,6 +15,9 @@ public class DropItemManager : MonoBehaviour
     [SerializeField]
     private DropBoxBase foodPrefab;
 
+    [SerializeField]
+    private DropBoxBase treasureWeaponPrefab;
+
 
     void Awake()
     {
@@ -36,6 +39,7 @@ public class DropItemManager : MonoBehaviour
             ItemType.Goal => goalPointPrefab,
             ItemType.Coin => coinPrefab,
             ItemType.Food => foodPrefab,
+            ItemType.Weapon => treasureWeaponPrefab,
             _ => null
         };
     }
@@ -45,8 +49,7 @@ public class DropItemManager : MonoBehaviour
     /// </summary>
     /// <param name="itemType"></param>
     /// <param name="generatePos"></param>
-    public void GenerateDropItem(ItemType itemType, Vector2 generatePos) {
-        DropBoxBase dropItem = Instantiate(GetDropItemPrefab(itemType), generatePos, Quaternion.identity);
-
+    public DropBoxBase GenerateDropItem(ItemType itemType, Vector2 generatePos) {
+        return Instantiate(GetDropItemPrefab(itemType), generatePos, Quaternion.identity);
     }
 }
