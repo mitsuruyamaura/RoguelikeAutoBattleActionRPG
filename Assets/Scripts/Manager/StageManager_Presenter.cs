@@ -154,10 +154,6 @@ public class StageManager_Presenter : MonoBehaviour
                 }).AddTo(obstaclesList[index].gameObject);
         }
 
-        // 武器取得時のポップアップの生成
-        weaponSelectPopUp = Instantiate(weaponSelectPopUpPrefab, canvasTran, false);
-        weaponSelectPopUp.SetUpPopUp(UserDataManager.instance.CurrentWeapon);
-
         // ドロップアイテムの取得
         playerController.OnTriggerEnter2DAsObservable()
             .Subscribe(col => {
@@ -165,6 +161,10 @@ public class StageManager_Presenter : MonoBehaviour
                     dropItem.TriggerDropBoxEffect(this);
                 }
             }).AddTo(playerController.gameObject);
+
+        // 武器取得時のポップアップの生成
+        weaponSelectPopUp = Instantiate(weaponSelectPopUpPrefab, canvasTran, false);
+        weaponSelectPopUp.SetUpPopUp(UserDataManager.instance.CurrentWeapon);
     }
 
     /// <summary>
@@ -180,5 +180,22 @@ public class StageManager_Presenter : MonoBehaviour
         UserDataManager.instance.CalculateFood(bonusPoint);
 
         SceneStateManager.instance.PrepareNextScene(SceneName.Main);
+    }
+
+    /// <summary>
+    /// 武器選択ウインドウ表示
+    /// </summary>
+    /// <param name="weaponDatas"></param>
+    public void ShowWeaponSelectPopUp(WeaponData[] weaponDatas) {
+        Debug.Log("トレジャー取得");
+
+        playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Info;
+
+        // 3種類の中から１つを抽出し、スキルリストを作成
+        WeaponData newWeaponData = weaponDatas[Random.Range(0, weaponDatas.Length)];
+        newWeaponData.skillDatasList = DataBaseManager.instance.GetWeaponSkillDatas(newWeaponData.skillNos);
+
+        // トレジャー選択ウインドウ表示
+        weaponSelectPopUp.ShowPopUp(newWeaponData, UserDataManager.instance.CurrentWeapon, UserDataManager.instance.currentUseCount);
     }
 }

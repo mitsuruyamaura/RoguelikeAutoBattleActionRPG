@@ -40,7 +40,10 @@ public class Treasure : DropBoxBase {
 
     public override void TriggerDropBoxEffect(StageManager_Presenter presenter) {
 
-        //presenter.ShowWeaponSelectPopUp(weaponDatas);
+        presenter.ShowWeaponSelectPopUp(weaponDatas);
+
+        EffectBase effect = Instantiate(EffectManager.instance.GetEffect(EffectType.TresureDrop), transform.position, Quaternion.identity);
+        Destroy(effect.gameObject, 3.0f);
 
         base.TriggerDropBoxEffect(presenter);
 
