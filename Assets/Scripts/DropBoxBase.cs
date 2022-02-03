@@ -10,7 +10,7 @@ public class DropBoxBase : MonoBehaviour {
     [SerializeField]
     protected int itemValue;
 
-    public virtual void SetUpDropBox<T>(T[] t) where T : class {
+    public virtual void SetUpDropBox<T>(T[] t, ItemType itemType = ItemType.Weapon) where T : class {
 
         //this.OnTriggerEnter2DAsObservable()
         //    .Subscribe(col => {

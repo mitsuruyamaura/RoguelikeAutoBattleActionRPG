@@ -250,7 +250,8 @@ public class PlayerController : MonoBehaviour
 
                 weaponDatas = DataBaseManager.instance.GetWeaponDataByRarity(rarities);
                 DropBoxBase treasure = DropItemManager.instance.GenerateDropItem(ItemType.Weapon, new Vector2(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f)));
-                treasure.GetComponent<Treasure>().SetUpTreasure(weaponDatas);
+                //treasure.GetComponent<Treasure>().SetUpTreasure(weaponDatas);
+                treasure.SetUpDropBox(weaponDatas);
             } else {
 
                 // コインかフードの生成
