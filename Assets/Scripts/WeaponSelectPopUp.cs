@@ -61,13 +61,15 @@ public class WeaponSelectPopUp : MonoBehaviour
     private Transform baseSkillDetailsTran;
 
     private WeaponData newWeaponData;
+    private StageManager_Presenter stageManager;
 
 
     /// <summary>
     /// ポップアップの初期設定
     /// </summary>
     /// <param name="baseWeaponData"></param>
-    public void SetUpPopUp(WeaponData baseWeaponData) {
+    public void SetUpPopUp(WeaponData baseWeaponData, StageManager_Presenter stageManager) {
+        this.stageManager = stageManager;
 
         // 非表示処理
         canvasGroup.alpha = 0;
@@ -136,6 +138,8 @@ public class WeaponSelectPopUp : MonoBehaviour
         // アニメしながら非表示
         canvasGroup.DOFade(0, 0.5f);
         imgFrame.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutQuart).OnComplete(() => gameObject.SetActive(false));
+
+        stageManager.SwitchPause(false);
     }
 
     /// <summary>

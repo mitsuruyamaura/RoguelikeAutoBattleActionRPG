@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     public ReactiveProperty<bool> IsPause = new ReactiveProperty<bool>(false);
 
 
-    // Start is called before the first frame update
     void Start() {
         TryGetComponent(out rb);
         TryGetComponent(out anim);
@@ -74,8 +73,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Move() {
         if (currentPlayerState == PlayerState.GameUp) {
-            rb.velocity = Vector2.zero;
-            return;
+            StopMove();
         }
 
         Vector2 dir = new Vector3(horizontal, vertical).normalized;
@@ -261,8 +259,6 @@ public class PlayerController : MonoBehaviour
 
         obstacle.DestroyObstacle();
 
-        // トレジャー選択ウインドウが閉じるまで待機
-
         yield return new WaitForSeconds(0.5f);
 
         currentPlayerState = PlayerState.Battle_After;
@@ -285,6 +281,12 @@ public class PlayerController : MonoBehaviour
 
         //DropBoxBase itemPrefab = DropItemManager.instance.GetDropItemPrefab(Random.Range(0, 100) > 50 ?  ItemType.Coin : ItemType.Food);
         //DropBoxBase item = Instantiate(itemPrefab, new Vector3(transform.position.x + Random.Range(-2.0f, 2.0f), transform.position.y + Random.Range(-2.0f, 2.0f), 0), Quaternion.identity);
+    }
+
+
+    public void StopMove() {
+        rb.velocity = Vector2.zero;
+        return;
     }
 
 

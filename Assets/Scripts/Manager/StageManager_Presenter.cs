@@ -164,7 +164,7 @@ public class StageManager_Presenter : MonoBehaviour
 
         // 武器取得時のポップアップの生成
         weaponSelectPopUp = Instantiate(weaponSelectPopUpPrefab, canvasTran, false);
-        weaponSelectPopUp.SetUpPopUp(UserDataManager.instance.CurrentWeapon);
+        weaponSelectPopUp.SetUpPopUp(UserDataManager.instance.CurrentWeapon, this);
     }
 
     /// <summary>
@@ -190,6 +190,8 @@ public class StageManager_Presenter : MonoBehaviour
         Debug.Log("トレジャー取得");
 
         playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Info;
+        playerController.currentPlayerState = PlayerController.PlayerState.Info;
+        playerController.StopMove();
 
         // 3種類の中から１つを抽出し、スキルリストを作成
         WeaponData newWeaponData = weaponDatas[Random.Range(0, weaponDatas.Length)];
@@ -197,5 +199,14 @@ public class StageManager_Presenter : MonoBehaviour
 
         // トレジャー選択ウインドウ表示
         weaponSelectPopUp.ShowPopUp(newWeaponData, UserDataManager.instance.CurrentWeapon, UserDataManager.instance.currentUseCount);
+    }
+
+    /// <summary>
+    /// ポーズ状態の切り替え
+    /// </summary>
+    /// <param name="isSwitch"></param>
+    public void SwitchPause(bool isSwitch) {
+        playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Move;
+        playerController.currentPlayerState = PlayerController.PlayerState.Move;
     }
 }
