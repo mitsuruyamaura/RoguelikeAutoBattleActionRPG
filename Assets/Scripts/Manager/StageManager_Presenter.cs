@@ -147,10 +147,10 @@ public class StageManager_Presenter : MonoBehaviour
                     // TODO List から抜きたいが、Skip があるため、上手く制御できない。別の方法を検討する
                     // 問題１。index がズレる。代入していてもズレる
                     // 問題２。Skip の影響で、１回分待機が入り、HP 0 のタイミングで呼ばれないことがある
-                    //if (x.newValue <= 0) {
-                    //    obstaclesList[index].DestroyObstacle();
-                    //    obstaclesList.Remove(obstaclesList[index]);                        
-                    //}
+                    if (x.newValue <= 0 || x.newValue <= 0) {
+                        obstaclesList[index].DestroyObstacle();
+                        obstaclesList.Remove(obstaclesList[index]);
+                    }
                 }).AddTo(obstaclesList[index].gameObject);
         }
 
@@ -199,14 +199,46 @@ public class StageManager_Presenter : MonoBehaviour
 
         // トレジャー選択ウインドウ表示
         weaponSelectPopUp.ShowPopUp(newWeaponData, UserDataManager.instance.CurrentWeapon, UserDataManager.instance.currentUseCount);
+
+        // 障害物全体の移動を一時停止
+        if (obstaclesList.Count > 0) {
+            PauseObstacles();
+        }
     }
 
     /// <summary>
     /// ポーズ状態の切り替え
     /// </summary>
-    /// <param name="isSwitch"></param>
-    public void SwitchPause(bool isSwitch) {
+    public void ResumeGame() {
+        // プレーヤーの操作入力を再開
         playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Move;
         playerController.currentPlayerState = PlayerController.PlayerState.Move;
+
+        // 障害物全体の移動を再開
+        if (obstaclesList.Count > 0) {
+            ResumeObstacles();
+        }
+    }
+
+    /// <summary>
+    /// 障害物全体の移動を一時停止
+    /// </summary>
+    public void PauseObstacles() {
+        for (int i = 0; i < obstaclesList.Count; i++) {
+            if (obstaclesList[i].gameObject.TryGetComponent(out EnemyController enemyController)) {
+                enemyController.PauseMove();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 障害物全体の移動を再開
+    /// </summary>
+    public void ResumeObstacles() {
+        for (int i = 0; i < obstaclesList.Count; i++) {
+            if (obstaclesList[i].gameObject.TryGetComponent(out EnemyController enemyController)) {
+                enemyController.ResumeMove();
+            }
+        }
     }
 }
