@@ -139,7 +139,8 @@ public class WeaponSelectPopUp : MonoBehaviour
         canvasGroup.DOFade(0, 0.5f);
         imgFrame.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutQuart).OnComplete(() => gameObject.SetActive(false));
 
-        stageManager.SwitchPause(false);
+        // ゲームの進行を再開
+        stageManager.ResumeGame();
     }
 
     /// <summary>

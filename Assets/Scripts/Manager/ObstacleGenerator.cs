@@ -20,7 +20,7 @@ public class ObstacleGenerator : MonoBehaviour
     [SerializeField] private int column;   // —ñ/ ‚’¼(c)•ûŒü
 
 
-    public List<ObstacleBase> GenerateRandomObstacles(int[] weights, int generateCount) {  // TODO ˆø”‚Å¶¬‚·‚éî•ñ‚ğó‚¯æ‚é
+    public List<ObstacleBase> GenerateRandomObstacles(int[] weights, int generateCount, StageManager_Presenter stageManager) {  // TODO ˆø”‚Å¶¬‚·‚éî•ñ‚ğó‚¯æ‚é
 
         List<ObstacleBase> obstaclesList = new List<ObstacleBase>();
 
@@ -62,7 +62,7 @@ public class ObstacleGenerator : MonoBehaviour
 
                 ObstacleBase obstacle = Instantiate(obstacleBasePrefabs[index], obstacleTran);
                 obstacle.transform.position = new Vector3(i, j, 0);
-                obstacle.SetUpObstacleBase(ObstacleBase.ObstacleState.Stop);
+                obstacle.SetUpObstacleBase(ObstacleBase.ObstacleState.Stop, stageManager);
                 obstaclesList.Add(obstacle);
 
                 // ˆÚ“®‚µ‚È‚¢áŠQ•¨‚ÍƒS[ƒ‹’n“_‚ÌŒó•â‚Æ‚·‚é

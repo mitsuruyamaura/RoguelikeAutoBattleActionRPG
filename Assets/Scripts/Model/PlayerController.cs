@@ -257,6 +257,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // プレゼンター側で削除するので不要
         obstacle.DestroyObstacle();
 
         yield return new WaitForSeconds(0.5f);
