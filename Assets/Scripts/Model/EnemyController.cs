@@ -28,8 +28,8 @@ public class EnemyController : ObstacleBase {
     /// <summary>
     /// ‰Šúİ’è
     /// </summary>
-    public override void SetUpObstacleBase(ObstacleState defaultState) {
-        base.SetUpObstacleBase(defaultState);
+    public override void SetUpObstacleBase(ObstacleState defaultState, StageManager_Presenter stageManager_Presenter) {
+        base.SetUpObstacleBase(defaultState, stageManager_Presenter);
 
         TryGetComponent(out rb);
         TryGetComponent(out anim);

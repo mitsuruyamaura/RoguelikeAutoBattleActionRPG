@@ -133,7 +133,7 @@ public class StageManager_Presenter : MonoBehaviour
             .AddTo(this);
 
         // TODO 障害物の生成と List への登録
-        obstaclesList = obstacleGenerator.GenerateRandomObstacles(obstacleWeights, generateCount);
+        obstaclesList = obstacleGenerator.GenerateRandomObstacles(obstacleWeights, generateCount, this);
 
         // 障害物の HP の購読
         for (int i = 0; i < obstaclesList.Count; i++) {
@@ -147,11 +147,20 @@ public class StageManager_Presenter : MonoBehaviour
                     // TODO List から抜きたいが、Skip があるため、上手く制御できない。別の方法を検討する
                     // 問題１。index がズレる。代入していてもズレる
                     // 問題２。Skip の影響で、１回分待機が入り、HP 0 のタイミングで呼ばれないことがある
-                    if (x.newValue <= 0 || x.newValue <= 0) {
-                        obstaclesList[index].DestroyObstacle();
-                        obstaclesList.Remove(obstaclesList[index]);
-                    }
+                    // => 別途用意したので、ここでは List から抜かない
+                    //if (x.newValue - x.oldValue <= 0) {
+                    //    obstaclesList[index].DestroyObstacle();
+                    //    obstaclesList.Remove(obstaclesList[index]);
+                    //}
                 }).AddTo(obstaclesList[index].gameObject);
+
+            //obstaclesList[index].Hp
+            //    .Where(x => x <= 0)
+            //    .Subscribe(_ => {
+            //        obstaclesList[index].DestroyObstacle();
+            //        obstaclesList.Remove(obstaclesList[index]);
+            //    })
+            //    .AddTo(obstaclesList[index].gameObject);
         }
 
         // ドロップアイテムの取得
@@ -240,5 +249,10 @@ public class StageManager_Presenter : MonoBehaviour
                 enemyController.ResumeMove();
             }
         }
+    }
+
+
+    public void RemoveObstacleList(ObstacleBase obstacleBase) {
+        obstaclesList.Remove(obstacleBase);
     }
 }

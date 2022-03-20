@@ -31,6 +31,7 @@ public class ObstacleBase : MonoBehaviour
 
     public ObstacleType obstacleType;
     public bool isGoal;
+    private StageManager_Presenter stageManager;
 
 
     void Start() {
@@ -43,10 +44,12 @@ public class ObstacleBase : MonoBehaviour
     /// <summary>
     /// ‰Šúİ’è
     /// </summary>
-    public virtual void SetUpObstacleBase(ObstacleState defaultState) {
+    public virtual void SetUpObstacleBase(ObstacleState defaultState, StageManager_Presenter stageManager) {
         Hp.Value = hp;
         maxHp = hp;
         cururentObstacleState = defaultState;
+
+        this.stageManager = stageManager;
     }
 
     /// <summary>
@@ -61,6 +64,7 @@ public class ObstacleBase : MonoBehaviour
     /// ”j‰óˆ—
     /// </summary>
     public virtual void DestroyObstacle() {
+        stageManager.RemoveObstacleList(this);
         Destroy(gameObject);
     }
 
