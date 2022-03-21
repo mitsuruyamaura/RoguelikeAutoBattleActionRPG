@@ -256,8 +256,7 @@ public class PlayerController : MonoBehaviour
                 GenerateNormalItem();
             }
         }
-
-        // プレゼンター側で削除するので不要
+        // 障害物の削除
         obstacle.DestroyObstacle();
 
         yield return new WaitForSeconds(0.5f);
@@ -266,6 +265,11 @@ public class PlayerController : MonoBehaviour
         CurrentPlayerState.Value = PlayerState.Battle_After;
 
         yield return new WaitForSeconds(0.25f);
+
+        // すぐに武器を取得している場合には、移動状態にはしない
+        if (currentPlayerState == PlayerState.Info || CurrentPlayerState.Value == PlayerState.Info) {
+            yield break;
+        }
 
         currentPlayerState = PlayerState.Move;
         CurrentPlayerState.Value = PlayerState.Move;
