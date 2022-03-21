@@ -64,7 +64,7 @@ public class ObstacleBase : MonoBehaviour
     /// ”j‰óˆ—
     /// </summary>
     public virtual void DestroyObstacle() {
-        stageManager.RemoveObstacleList(this);
+        //stageManager.RemoveObstacleList(this);
         Destroy(gameObject);
     }
 

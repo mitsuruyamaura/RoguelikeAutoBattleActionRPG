@@ -56,6 +56,9 @@ public class StageManager_Presenter : MonoBehaviour
 
                 if (UserDataManager.instance.User.Food.Value <= 0) {
                     playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
+
+                    // TODO ゲームオーバー処理
+                    Debug.Log("ゲームオーバー");
                 }
             }).AddTo(this);
 
@@ -132,7 +135,7 @@ public class StageManager_Presenter : MonoBehaviour
             })
             .AddTo(this);
 
-        // TODO 障害物の生成と List への登録
+        // 障害物の生成と List への登録
         obstaclesList = obstacleGenerator.GenerateRandomObstacles(obstacleWeights, generateCount, this);
 
         // 障害物の HP の購読
@@ -143,6 +146,8 @@ public class StageManager_Presenter : MonoBehaviour
             obstaclesList[index].Hp
                 .Zip(obstaclesList[index].Hp.Skip(1), (oldValue, newValue) => new { oldValue, newValue })
                 .Subscribe(x => {
+                    Debug.Log(index);
+                    Debug.Log(x);
                     hpGaugeView.UpdateObstacleHpGauge(x.newValue, obstaclesList[index].maxHp, x.newValue - x.oldValue);
                     // TODO List から抜きたいが、Skip があるため、上手く制御できない。別の方法を検討する
                     // 問題１。index がズレる。代入していてもズレる
@@ -174,6 +179,9 @@ public class StageManager_Presenter : MonoBehaviour
         // 武器取得時のポップアップの生成
         weaponSelectPopUp = Instantiate(weaponSelectPopUpPrefab, canvasTran, false);
         weaponSelectPopUp.SetUpPopUp(UserDataManager.instance.CurrentWeapon, this);
+
+        // 残り時間(フード)のカウントスタート
+        StartCoroutine(CountDownTimer());
     }
 
     /// <summary>
@@ -219,6 +227,10 @@ public class StageManager_Presenter : MonoBehaviour
     /// ポーズ状態の切り替え
     /// </summary>
     public void ResumeGame() {
+        // カメラを元に戻す
+        playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Battle_After;
+        playerController.currentPlayerState = PlayerController.PlayerState.Battle_After;
+
         // プレーヤーの操作入力を再開
         playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Move;
         playerController.currentPlayerState = PlayerController.PlayerState.Move;
@@ -234,7 +246,7 @@ public class StageManager_Presenter : MonoBehaviour
     /// </summary>
     public void PauseObstacles() {
         for (int i = 0; i < obstaclesList.Count; i++) {
-            if (obstaclesList[i].gameObject.TryGetComponent(out EnemyController enemyController)) {
+            if (obstaclesList[i] != null && obstaclesList[i].gameObject.TryGetComponent(out EnemyController enemyController)) {
                 enemyController.PauseMove();
             }
         }
@@ -245,14 +257,40 @@ public class StageManager_Presenter : MonoBehaviour
     /// </summary>
     public void ResumeObstacles() {
         for (int i = 0; i < obstaclesList.Count; i++) {
-            if (obstaclesList[i].gameObject.TryGetComponent(out EnemyController enemyController)) {
+            if (obstaclesList[i] != null && obstaclesList[i].gameObject.TryGetComponent(out EnemyController enemyController)) {
                 enemyController.ResumeMove();
             }
         }
     }
 
-
+    /// <summary>
+    /// List から障害物の情報を削除
+    /// </summary>
+    /// <param name="obstacleBase"></param>
     public void RemoveObstacleList(ObstacleBase obstacleBase) {
         obstaclesList.Remove(obstacleBase);
+    }
+
+    /// <summary>
+    /// フード消費のカウントダウンタイマー
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator CountDownTimer() {
+
+        float timer = 0;
+        while (UserDataManager.instance.User.Food.Value > 0) {
+
+            if (playerController.currentPlayerState == PlayerController.PlayerState.Move || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Move ||
+                playerController.currentPlayerState == PlayerController.PlayerState.Battle_Before || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before) {
+
+                timer += Time.deltaTime;
+
+                if (timer >= 1.0f) {
+                    timer = 0;
+                    UserDataManager.instance.CalculateFood(-1);
+                }
+            }
+            yield return null;
+        }
     }
 }
