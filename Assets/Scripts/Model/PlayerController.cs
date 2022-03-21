@@ -227,6 +227,11 @@ public class PlayerController : MonoBehaviour
             Destroy(effect[i].gameObject);
         }
 
+        // プレイヤーの HP がない場合には、ゲーム終了
+        if (CurrentPlayerState.Value == PlayerState.GameUp) {
+            yield break;
+        }
+
         // ズームアウト(自動で購読させるので、不要)
 
         // リザルト処理入れる(それまで hp を見せておく)
