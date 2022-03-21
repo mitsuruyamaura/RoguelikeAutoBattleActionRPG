@@ -227,6 +227,10 @@ public class StageManager_Presenter : MonoBehaviour
     /// ポーズ状態の切り替え
     /// </summary>
     public void ResumeGame() {
+        // カメラを元に戻す
+        playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Battle_After;
+        playerController.currentPlayerState = PlayerController.PlayerState.Battle_After;
+
         // プレーヤーの操作入力を再開
         playerController.CurrentPlayerState.Value = PlayerController.PlayerState.Move;
         playerController.currentPlayerState = PlayerController.PlayerState.Move;
@@ -276,7 +280,8 @@ public class StageManager_Presenter : MonoBehaviour
         float timer = 0;
         while (UserDataManager.instance.User.Food.Value > 0) {
 
-            if (playerController.currentPlayerState == PlayerController.PlayerState.Move || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Move) {
+            if (playerController.currentPlayerState == PlayerController.PlayerState.Move || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Move ||
+                playerController.currentPlayerState == PlayerController.PlayerState.Battle_Before || playerController.CurrentPlayerState.Value == PlayerController.PlayerState.Battle_Before) {
 
                 timer += Time.deltaTime;
 

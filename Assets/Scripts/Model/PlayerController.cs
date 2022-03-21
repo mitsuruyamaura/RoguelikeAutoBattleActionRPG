@@ -261,15 +261,15 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        currentPlayerState = PlayerState.Battle_After;
-        CurrentPlayerState.Value = PlayerState.Battle_After;
-
-        yield return new WaitForSeconds(0.25f);
-
         // ‚·‚®‚É•Ší‚ğæ“¾‚µ‚Ä‚¢‚éê‡‚É‚ÍAˆÚ“®ó‘Ô‚É‚Í‚µ‚È‚¢
         if (currentPlayerState == PlayerState.Info || CurrentPlayerState.Value == PlayerState.Info) {
             yield break;
         }
+
+        currentPlayerState = PlayerState.Battle_After;
+        CurrentPlayerState.Value = PlayerState.Battle_After;
+
+        yield return new WaitForSeconds(0.25f);
 
         currentPlayerState = PlayerState.Move;
         CurrentPlayerState.Value = PlayerState.Move;
