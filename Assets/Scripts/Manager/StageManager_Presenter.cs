@@ -35,6 +35,10 @@ public class StageManager_Presenter : MonoBehaviour
     [SerializeField]
     private Transform canvasTran;
 
+    [SerializeField]
+    private GameUpPopUp gameUpPopUpPrefab;
+    private GameUpPopUp gameUpPop;
+
     private WeaponSelectPopUp weaponSelectPopUp;
 
 
@@ -54,11 +58,15 @@ public class StageManager_Presenter : MonoBehaviour
             .Subscribe(x => {
                 uiManager.UpdateDisplayFood(x.oldValue, x.newValue);
 
-                if (UserDataManager.instance.User.Food.Value <= 0) {
+                if (UserDataManager.instance.User.Food.Value <= 0 && playerController.CurrentPlayerState.Value != PlayerController.PlayerState.GameUp) {
                     playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
 
-                    // TODO ゲームオーバー処理
-                    Debug.Log("ゲームオーバー");
+                    if (!gameUpPop) {
+                        // ゲームオーバー処理
+                        Debug.Log("ゲームオーバー");
+                        gameUpPop = Instantiate(gameUpPopUpPrefab);
+                        gameUpPop.ShowGameUpPopUp(true);
+                    }
                 }
             }).AddTo(this);
 
@@ -129,8 +137,15 @@ public class StageManager_Presenter : MonoBehaviour
                 // Hpゲージ更新
                 hpGaugeView.UpdatePlayerHpGauge(x.newValue, UserDataManager.instance.CurrentCharacter.maxHp, x.newValue - x.oldValue);
 
-                if (UserDataManager.instance.Hp.Value <= 0) {
+                if (UserDataManager.instance.Hp.Value <= 0 && playerController.CurrentPlayerState.Value != PlayerController.PlayerState.GameUp) {
                     playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
+
+                    if (!gameUpPop) {
+                        // ゲームオーバー処理
+                        Debug.Log("ゲームオーバー");
+                        gameUpPop = Instantiate(gameUpPopUpPrefab);
+                        gameUpPop.ShowGameUpPopUp(true);
+                    }
                 }
             })
             .AddTo(this);
