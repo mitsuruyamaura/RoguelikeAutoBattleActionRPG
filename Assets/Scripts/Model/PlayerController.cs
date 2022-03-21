@@ -228,7 +228,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // プレイヤーの HP がない場合には、ゲーム終了
-        if (CurrentPlayerState.Value == PlayerState.GameUp) {
+        if (UserDataManager.instance.Hp.Value <= 0 || CurrentPlayerState.Value == PlayerState.GameUp) {
+
+            anim.SetBool("Down", true);
+            Debug.Log("敗北アニメ　再生");
             yield break;
         }
 
