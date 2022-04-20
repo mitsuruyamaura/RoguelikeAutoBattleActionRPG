@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    [SerializeField]
+    [SerializeField, Header("ˆÚ“®‘¬“x")]
     private float moveSpeed = 3.0f;
 
     private float horizontal;
