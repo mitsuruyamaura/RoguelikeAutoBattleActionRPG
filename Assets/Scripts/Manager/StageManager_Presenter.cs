@@ -43,6 +43,9 @@ public class StageManager_Presenter : MonoBehaviour
 
 
     void Start() {
+
+        SoundManager.instance.PlayBGM(BgmType.Main);
+
         // ユーザーが生成されていない場合には、ユーザーを作成
         if (UserDataManager.instance.User == null) {
             UserDataManager.instance.User = User.CreateUser(60, 0, 1);
