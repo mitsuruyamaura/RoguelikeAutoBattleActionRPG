@@ -83,6 +83,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -91,9 +93,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -114,9 +116,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
@@ -555,6 +560,26 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      MrClockworkWalkUp1: 21300000
+      MrClockworkWalkSides1: 21300016
+      MrClockworkIdleSides: 21300024
+      MrClockworkWalkUp2: 21300002
+      MrClockworkWalkSides2: 21300018
+      MrClockworkWalkDown3: 21300012
+      MrClockworkWalkUp3: 21300004
+      MrClockworkWalkDown1: 21300008
+      MrClockworkFixed2: 21300032
+      MrClockworkWalkUp4: 21300006
+      MrClockworkWalkDown4: 21300014
+      MrClockworkWalkSides3: 21300020
+      MrClockworkFixed1: 21300030
+      MrClockworkIdleDown: 21300026
+      MrClockworkWalkSides4: 21300022
+      MrClockworkWalkDown2: 21300010
+      MrClockworkIdleUp: 21300028
+      MrClockworkFixed4: 21300036
+      MrClockworkFixed3: 21300034
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

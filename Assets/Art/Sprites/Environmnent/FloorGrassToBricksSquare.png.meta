@@ -132,6 +132,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -976,6 +977,43 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      FloorGrassToBricksSquare_20: -1752296377900802422
+      FloorGrassToBricksSquare_28: -5751784259761190965
+      FloorGrassToBricksSquare_29: 4543893600947085552
+      FloorGrassToBricksSquare_26: 4272531094842786690
+      FloorGrassToBricksSquare_33: -1291123488024209867
+      FloorGrassToBricksSquare_7: 4339591326582698190
+      FloorGrassToBricksSquare_32: 2858571368098696451
+      FloorGrassToBricksSquare_24: 1795077627422842817
+      FloorGrassToBricksSquare_30: 8395831372441103446
+      FloorGrassToBricksSquare_4: -3190298199729726856
+      FloorGrassToBricksSquare_35: 4532674285222595185
+      FloorGrassToBricksSquare_34: 3371687775898166050
+      FloorGrassToBricksSquare_2: 273298218066738014
+      FloorGrassToBricksSquare_19: 6961050910505133610
+      FloorGrassToBricksSquare_17: 8419493698033616895
+      FloorGrassToBricksSquare_10: 3375703848004202731
+      FloorGrassToBricksSquare_23: -4564554251675748308
+      FloorGrassToBricksSquare_5: -5211558198385893417
+      FloorGrassToBricksSquare_6: -274761085805985898
+      FloorGrassToBricksSquare_12: -4463514311235591845
+      FloorGrassToBricksSquare_13: 4605014238366607682
+      FloorGrassToBricksSquare_27: 6267374777158229906
+      FloorGrassToBricksSquare_18: 7199767106712035643
+      FloorGrassToBricksSquare_16: 1386897603130960924
+      FloorGrassToBricksSquare_9: 777301769952742944
+      FloorGrassToBricksSquare_25: 4668882719205942292
+      FloorGrassToBricksSquare_21: -8897859424639869864
+      FloorGrassToBricksSquare_15: -5412237430116826046
+      FloorGrassToBricksSquare_8: 3867390401686247744
+      FloorGrassToBricksSquare_11: 2298635500070476901
+      FloorGrassToBricksSquare_31: -7281951683727586820
+      FloorGrassToBricksSquare_22: -7803590533445475226
+      FloorGrassToBricksSquare_1: -2133266694662716391
+      FloorGrassToBricksSquare_3: -8216298994678088486
+      FloorGrassToBricksSquare_0: -1160634482217872146
+      FloorGrassToBricksSquare_14: 5218049199659867857
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
