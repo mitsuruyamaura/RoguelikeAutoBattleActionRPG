@@ -15,5 +15,5 @@ MonoBehaviour:
   BoardName: "\u30CF\u30A4\u30B9\u30B3\u30A2"
   ClassName: HiScore
   Type: 0
-  Order: 0
+  Order: 1
   CustomFormat: 

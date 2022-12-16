@@ -545,6 +545,15 @@ public class PlayerController_All : MonoBehaviour
     }
 
     /// <summary>
+    /// サーバーセーブ用。SendScoreAndShowRanking メソッドの第2引数に ID 番号としてキャストして使う
+    /// RankingBoards スクリプタブル・オブジェクトの配列の Element 番号が ID 番号として識別される
+    /// </summary>
+    public enum SaveType {
+        TotalCoins,
+        ClearStageCount
+    }
+
+    /// <summary>
     /// フード計算
     /// </summary>
     /// <param name="amount"></param>
@@ -557,7 +566,8 @@ public class PlayerController_All : MonoBehaviour
             Debug.Log("ゲームオーバー");
 
             // サーバーにセーブ
-            naichilab.RankingLoader.Instance.SendScoreAndShowRanking(GameData.instance.coin + Coin.Value);
+            naichilab.RankingLoader.Instance.SendScoreAndShowRanking(GameData.instance.coin + Coin.Value, (int)SaveType.TotalCoins);
+            naichilab.RankingLoader.Instance.SendScoreAndShowRanking(GameData.instance.stageNo, (int)SaveType.ClearStageCount);
         }
         Debug.Log("フード更新");
     }

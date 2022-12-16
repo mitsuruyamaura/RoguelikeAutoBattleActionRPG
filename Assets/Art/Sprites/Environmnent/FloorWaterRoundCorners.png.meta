@@ -132,6 +132,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -976,6 +977,43 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      FloorWaterRoundCorners_21: 2264334491631811653
+      FloorWaterRoundCorners_22: 8508903800291537311
+      FloorWaterRoundCorners_19: 75992129828251119
+      FloorWaterRoundCorners_9: 951924450021351167
+      FloorWaterRoundCorners_16: -3230435599738141683
+      FloorWaterRoundCorners_11: 2685386671981734945
+      FloorWaterRoundCorners_23: 6485652918245563236
+      FloorWaterRoundCorners_27: 253288896415200854
+      FloorWaterRoundCorners_26: -1740558709983115310
+      FloorWaterRoundCorners_31: -9192775027249994118
+      FloorWaterRoundCorners_8: 8928097699067777432
+      FloorWaterRoundCorners_20: -3734055898742437081
+      FloorWaterRoundCorners_14: 8512959874797404935
+      FloorWaterRoundCorners_1: -1461658588064603524
+      FloorWaterRoundCorners_7: -848561354300285403
+      FloorWaterRoundCorners_18: -3377072074610559499
+      FloorWaterRoundCorners_12: -1104348435557612669
+      FloorWaterRoundCorners_29: -8812632507606181871
+      FloorWaterRoundCorners_10: 7138345973610565943
+      FloorWaterRoundCorners_17: 5753185279624164895
+      FloorWaterRoundCorners_30: -1018502393072843304
+      FloorWaterRoundCorners_2: -187217663852998986
+      FloorWaterRoundCorners_33: 6110041701057369270
+      FloorWaterRoundCorners_15: 3675454285809385650
+      FloorWaterRoundCorners_0: 8160936719798313024
+      FloorWaterRoundCorners_34: -3914464908090139360
+      FloorWaterRoundCorners_24: 9048446724121662272
+      FloorWaterRoundCorners_5: 1764941518268613943
+      FloorWaterRoundCorners_13: 9084132406467755637
+      FloorWaterRoundCorners_3: -216212205376463626
+      FloorWaterRoundCorners_25: 2576911497297707955
+      FloorWaterRoundCorners_4: 5390282840649996488
+      FloorWaterRoundCorners_28: 7165172699019426107
+      FloorWaterRoundCorners_32: 5503461028640840141
+      FloorWaterRoundCorners_35: -896178556356424066
+      FloorWaterRoundCorners_6: 409711093647374902
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
