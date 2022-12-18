@@ -7,13 +7,25 @@ public class ObstacleBase : MonoBehaviour
 {
     public int hp;
 
+    /// <summary>
+    /// hp のプロパティ
+    /// </summary>
+    public int HP
+    {
+        get => hp;
+        set => hp = value;
+    }
+
     [SerializeField]
     private int attackPower;
+    public int AttackPower { get => attackPower; set => attackPower = value; }
+
+
+    // mi
 
     public int maxHp;
 
     public ReactiveProperty<int> Hp = new ReactiveProperty<int>();
-    public int AttackPower { get => attackPower; set => attackPower = value; }
 
     public int attackSpeed;
 
