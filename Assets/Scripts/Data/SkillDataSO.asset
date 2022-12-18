@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SkillDataSO
   m_EditorClassIdentifier: 
   skillDatasList:
-  - name: a
+  - name: normal slash
     no: 0
     weight: 100
     count: -6
@@ -23,7 +23,8 @@ MonoBehaviour:
     doubleStrikeRate: 0
     attackSpeed: 3
     lifeUp: 0
-  - name: b
+    sprite: {fileID: 0}
+  - name: normal punch
     no: 1
     weight: 80
     count: -2
@@ -33,7 +34,8 @@ MonoBehaviour:
     doubleStrikeRate: 5
     attackSpeed: 2
     lifeUp: 0
-  - name: c
+    sprite: {fileID: 0}
+  - name: normal spear
     no: 2
     weight: 60
     count: -4
@@ -43,6 +45,7 @@ MonoBehaviour:
     doubleStrikeRate: 0
     attackSpeed: 2
     lifeUp: 0
+    sprite: {fileID: 0}
   - name: d
     no: 3
     weight: 10
@@ -53,6 +56,7 @@ MonoBehaviour:
     doubleStrikeRate: 20
     attackSpeed: 7
     lifeUp: 0
+    sprite: {fileID: 0}
   - name: e
     no: 4
     weight: 70
@@ -63,6 +67,7 @@ MonoBehaviour:
     doubleStrikeRate: 0
     attackSpeed: 4
     lifeUp: 0
+    sprite: {fileID: 0}
   - name: f
     no: 5
     weight: 40
@@ -73,6 +78,7 @@ MonoBehaviour:
     doubleStrikeRate: 0
     attackSpeed: 6
     lifeUp: 3
+    sprite: {fileID: 0}
   - name: g
     no: 6
     weight: 100
@@ -83,6 +89,7 @@ MonoBehaviour:
     doubleStrikeRate: 15
     attackSpeed: 4
     lifeUp: 0
+    sprite: {fileID: 0}
   - name: h
     no: 7
     weight: 30
@@ -93,6 +100,7 @@ MonoBehaviour:
     doubleStrikeRate: 20
     attackSpeed: 5
     lifeUp: 0
+    sprite: {fileID: 0}
   - name: i
     no: 8
     weight: 200
@@ -103,6 +111,7 @@ MonoBehaviour:
     doubleStrikeRate: 20
     attackSpeed: 5
     lifeUp: 0
+    sprite: {fileID: 0}
   - name: j
     no: 9
     weight: 40
@@ -113,3 +122,4 @@ MonoBehaviour:
     doubleStrikeRate: 10
     attackSpeed: 10
     lifeUp: 0
+    sprite: {fileID: 0}
