@@ -11,6 +11,8 @@ public class UserDataManager : MonoBehaviour
 {
     public static UserDataManager instance;
 
+    public int HP;
+
     private User user;
     public User User { get => user; set => user = value; }
 
@@ -68,7 +70,7 @@ public class UserDataManager : MonoBehaviour
     /// <param name="amount"></param>
     public void CalculateFood(int amount) {
         User.Food.Value = Mathf.Clamp(User.Food.Value += amount, 0, CurrentCharacter.maxFood);
-        Debug.Log("フード更新 合計値 :" + User.Food.Value);
+        //Debug.Log("フード更新 合計値 :" + User.Food.Value);
     }
 
     /// <summary>

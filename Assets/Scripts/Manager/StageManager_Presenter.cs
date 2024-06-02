@@ -44,7 +44,7 @@ public class StageManager_Presenter : MonoBehaviour
 
     void Start() {
 
-        SoundManager.instance.PlayBGM(BgmType.Main);
+        SoundManager.instance?.PlayBGM(BgmType.Main);
 
         // ユーザーが生成されていない場合には、ユーザーを作成
         if (UserDataManager.instance.User == null) {
@@ -144,8 +144,11 @@ public class StageManager_Presenter : MonoBehaviour
                     playerController.CurrentPlayerState.Value = PlayerController.PlayerState.GameUp;
 
                     if (!gameUpPop) {
+                        // TODO タイミングちょっと早い　Hp 1 の時(0)になる前にゲームオーバーが出る。Skip の影響？
+                        // 監視以外の処理を切ってから、再度確認する
+
                         // ゲームオーバー処理
-                        Debug.Log("ゲームオーバー");
+                        //Debug.Log("ゲームオーバー");
                         gameUpPop = Instantiate(gameUpPopUpPrefab);
                         gameUpPop.ShowGameUpPopUp(true);
                     }
