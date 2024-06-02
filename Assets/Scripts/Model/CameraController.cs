@@ -33,12 +33,12 @@ public class CameraController : MonoBehaviour
             .Subscribe(_ => {
                 isZoom = !isZoom;
                 StartCoroutine(ChangeCameraOrthoSize(isZoom ? zoomLensOrthoSize : originLensOrthoSize));
-            }).AddTo(this);
+            });
 
         // デバッグ用
         this.UpdateAsObservable()
             .Where(_ => Input.GetKeyDown(KeyCode.I))
-            .Subscribe(_ => ImpulseCamera()).AddTo(this);
+            .Subscribe(_ => ImpulseCamera());
     }
 
     /// <summary>
@@ -81,6 +81,6 @@ public class CameraController : MonoBehaviour
     public void ImpulseCamera() {
         // カメラ振動
         impulseSource.GenerateImpulse();
-        Debug.Log("カメラ振動");
+        //Debug.Log("カメラ振動");
     }
 }

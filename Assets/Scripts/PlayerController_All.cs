@@ -378,14 +378,14 @@ public class PlayerController_All : MonoBehaviour
 
             Debug.Log(totalAttackPower);
 
-            enemy.hp -= totalAttackPower;
-            Debug.Log("“G‚ÌŽc‚è HP : " + enemy.Hp);
+            enemy.HP -= totalAttackPower;
+            Debug.Log("“G‚ÌŽc‚è HP : " + enemy.HP);
 
-            imgEnemyHpGauge.DOFillAmount((float)enemy.hp / enemy.maxHp, 0.25f).SetEase(Ease.InCirc);
+            imgEnemyHpGauge.DOFillAmount((float)enemy.HP / enemy.maxHp, 0.25f).SetEase(Ease.InCirc);
             FloatingMessage enemyFloatingMessage = Instantiate(floatingMessagePrefab, enemyHpGaugeTrans[1].transform, false);
             enemyFloatingMessage.ShowMessage(-totalAttackPower, isCritical);
 
-            if (enemy.hp <= 0) {
+            if (enemy.HP <= 0) {
                 currentPlayerState = PlayerState.Result;
             }
 
