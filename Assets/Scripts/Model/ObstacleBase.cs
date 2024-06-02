@@ -5,7 +5,8 @@ using UniRx;
 
 public class ObstacleBase : MonoBehaviour
 {
-    public int hp;
+    [SerializeField]
+    private int hp;
 
     /// <summary>
     /// hp のプロパティ
@@ -37,7 +38,7 @@ public class ObstacleBase : MonoBehaviour
     public enum ObstacleState {
         Move,
         Stop,
-
+        
     }
     public ObstacleState cururentObstacleState;
 
@@ -78,6 +79,7 @@ public class ObstacleBase : MonoBehaviour
     public virtual void DestroyObstacle() {
         //stageManager.RemoveObstacleList(this);
         Destroy(gameObject);
+        Debug.Log("障害物破壊");
     }
 
     /// <summary>
